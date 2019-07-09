@@ -21,11 +21,8 @@ namespace FlatRockTech.FamousQuoteQuiz.Domain.Database
             base.OnModelCreating(builder);
         }
 
-        private void Seed(ModelBuilder builder)
-        {
-            builder.Entity<User>().HasData(new User { Id = 12, Username = "burnoutdevs" });
-        }
-
         public DbSet<User> Users { get; set; }
+        public DbSet<Quote> Quotes { get; set; }
+        public DbSet<Author> Authors { get; set; }
     }
 }
