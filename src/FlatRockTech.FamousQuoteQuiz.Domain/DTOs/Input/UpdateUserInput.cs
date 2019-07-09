@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FlatRockTech.FamousQuoteQuiz.Domain.Models
+namespace FlatRockTech.FamousQuoteQuiz.Domain.DTOs
 {
-    public class RegistrationUserInput
+    public class UpdateUserInput
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -24,8 +24,12 @@ namespace FlatRockTech.FamousQuoteQuiz.Api
 {
     public class Startup
     {
+        private IHostingEnvironment _env;
+
         public Startup(IHostingEnvironment env)
         {
+            _env = env;
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -47,7 +51,7 @@ namespace FlatRockTech.FamousQuoteQuiz.Api
             services
                 .AddSwagger()
                 .AddCors()
-                .AddContext()
+                .AddContext(_env)
                 .AddAutoMapper(c => c.AddProfile<AutoMapperProfile>(), typeof(Startup))
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

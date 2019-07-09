@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FlatRockTech.FamousQuoteQuiz.Domain;
 using FlatRockTech.FamousQuoteQuiz.Domain.Entities;
-using FlatRockTech.FamousQuoteQuiz.Domain.Models;
+using FlatRockTech.FamousQuoteQuiz.Domain.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -58,25 +58,16 @@ namespace FlatRockTech.FamousQuoteQuiz.Api.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok(new AuthenticationResult
-            {
-                Id = user.Id,
-                Username = user.Username,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Token = tokenString
-            });
+            return Ok(user);
         }
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody]RegistrationUserInput input)
+        public IActionResult Register([FromBody]UserInput input)
         {
-            var user = _mapper.Map<User>(input);
-
             try
             {
-                user = _userService.Create(user, input.Password);
+                _userService.Create(input.FirstName, input.LastName, input.Username, input.Password);
                 return Ok();
             }
             catch (Exception ex)
@@ -89,7 +80,7 @@ namespace FlatRockTech.FamousQuoteQuiz.Api.Controllers
         public IActionResult GetAll()
         {
             var users = _userService.GetAll();
-            var userDtos = _mapper.Map<IList<UserInput>>(users);
+            var userDtos = _mapper.Map<IList<UserOutput>>(users);
             return Ok(userDtos);
         }
 
@@ -97,19 +88,16 @@ namespace FlatRockTech.FamousQuoteQuiz.Api.Controllers
         public IActionResult GetById(int id)
         {
             var user = _userService.GetById(id);
-            var userDto = _mapper.Map<UserInput>(user);
+            var userDto = _mapper.Map<UserOutput>(user);
             return Ok(userDto);
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]UpdateUserInput input)
         {
-            var user = _mapper.Map<User>(input);
-            user.Id = id;
-
             try
             {
-                _userService.Update(user, input.Password);
+                _userService.Update(id, input.FirstName, input.LastName, input.Username, input.Password);
                 return Ok();
             }
             catch (Exception ex)

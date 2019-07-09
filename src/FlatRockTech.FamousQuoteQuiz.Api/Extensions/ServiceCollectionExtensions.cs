@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using FlatRockTech.FamousQuoteQuiz.Domain;
 using FlatRockTech.FamousQuoteQuiz.Domain.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
 
 namespace FlatRockTech.FamousQuoteQuiz.Api.Extensions
 {
@@ -23,7 +24,7 @@ namespace FlatRockTech.FamousQuoteQuiz.Api.Extensions
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "My API",
+                    Title = "Quote Quiz API",
                     Version = "v1"
                 });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -37,9 +38,14 @@ namespace FlatRockTech.FamousQuoteQuiz.Api.Extensions
             return services;
         }
 
-        public static IServiceCollection AddContext(this IServiceCollection services)
+        public static IServiceCollection AddContext(this IServiceCollection services, IHostingEnvironment env)
         {
-            services.AddDbContext<QuizContext>(x => x.UseInMemoryDatabase("TestDb"));
+            var config = new ConfigurationBuilder()
+             .SetBasePath(env.ContentRootPath)
+             .AddJsonFile("appsettings.json")
+             .Build();
+
+            services.AddDbContext<QuizContext>(x=> x.UseSqlServer(config.GetConnectionString("Connection")));
             return services;
         }
 

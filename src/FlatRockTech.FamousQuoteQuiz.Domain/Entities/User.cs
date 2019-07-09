@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlatRockTech.FamousQuoteQuiz.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,8 +12,6 @@ namespace FlatRockTech.FamousQuoteQuiz.Domain.Entities
         public string Username { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        public string Password { get; set; }
-        public string Token { get; set; }
-        public string Role { get; set; }
+        public Role Role { get; set; }
     }
 }

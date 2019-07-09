@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FlatRockTech.FamousQuoteQuiz.Domain.Models
+namespace FlatRockTech.FamousQuoteQuiz.Domain.DTOs
 {
-    public class AuthenticationResult
+    public class UserOutput
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
-        public string Token { get; set; }
+        public string Role { get; set; }
     }
 }

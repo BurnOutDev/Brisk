@@ -1,4 +1,6 @@
-﻿using FlatRockTech.FamousQuoteQuiz.Domain.Database;
+﻿using AutoMapper;
+using FlatRockTech.FamousQuoteQuiz.Domain.Database;
+using FlatRockTech.FamousQuoteQuiz.Domain.DTOs;
 using FlatRockTech.FamousQuoteQuiz.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,13 +11,15 @@ namespace FlatRockTech.FamousQuoteQuiz.Domain
     public class UserService : IUserService
     {
         private QuizContext _context;
+        private IMapper _mapper;
 
-        public UserService(QuizContext context)
+        public UserService(QuizContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public User Authenticate(string username, string password)
+        public AuthenticationOutput Authenticate(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
@@ -30,28 +34,36 @@ namespace FlatRockTech.FamousQuoteQuiz.Domain
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
-            // authentication successful
-            return user;
+            var token = _mapper.Map<AuthenticationOutput>(user);
+
+            return token;
         }
 
-        public IEnumerable<User> GetAll()
+        IEnumerable<UserOutput> IUserService.GetAll()
         {
-            return _context.Users;
+            var users = _mapper.Map<IList<UserOutput>>(_context.Users);
+            return users;
         }
 
-        public User GetById(int id)
+        public UserOutput GetById(int id)
         {
-            return _context.Users.Find(id);
+            var user = _context.Users.Find(id);
+            return _mapper.Map<UserOutput>(user);
         }
 
-        public User Create(User user, string password)
+        public UserOutput Create(string firstName, string lastName, string username, string password)
         {
+            var user = new User();
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.Username = username;
+
             // validation
             if (string.IsNullOrWhiteSpace(password))
                 throw new Exception("Password is required");
 
-            if (_context.Users.Any(x => x.Username == user.Username))
-                throw new Exception("Username \"" + user.Username + "\" is already taken");
+            if (_context.Users.Any(x => x.Username == username))
+                throw new Exception("Username \"" + username + "\" is already taken");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -62,29 +74,29 @@ namespace FlatRockTech.FamousQuoteQuiz.Domain
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            return user;
+            var userOutput = _mapper.Map<UserOutput>(user);
+
+            return userOutput;
         }
 
-        public void Update(User userParam, string password = null)
+        public void Update(int id, string firstName, string lastName, string username, string password = null)
         {
-            var user = _context.Users.Find(userParam.Id);
+            var user = _context.Users.Find(id);
 
             if (user == null)
                 throw new Exception("User not found");
 
-            if (userParam.Username != user.Username)
+            if (username != user.Username)
             {
-                // username has changed so check if the new username is already taken
-                if (_context.Users.Any(x => x.Username == userParam.Username))
-                    throw new Exception("Username " + userParam.Username + " is already taken");
+                // check if the new username is already taken
+                if (_context.Users.Any(x => x.Username == username))
+                    throw new Exception("Username " + username + " is already taken");
             }
 
-            // update user properties
-            user.FirstName = userParam.FirstName;
-            user.LastName = userParam.LastName;
-            user.Username = userParam.Username;
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.Username = username;
 
-            // update password if it was entered
             if (!string.IsNullOrWhiteSpace(password))
             {
                 byte[] passwordHash, passwordSalt;
