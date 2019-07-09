@@ -101,9 +101,14 @@ namespace FlatRockTech.FamousQuoteQuiz.Api
             }
 
             app
+                .UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader())
                 .AddSwagger()
                 .UseHsts()
                 .UseHttpsRedirection()
+                .UseAuthentication()
                 .UseMvc();
         }
     }
