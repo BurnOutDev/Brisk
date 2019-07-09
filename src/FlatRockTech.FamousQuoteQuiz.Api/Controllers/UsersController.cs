@@ -58,6 +58,8 @@ namespace FlatRockTech.FamousQuoteQuiz.Api.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
+            user.Token = tokenString;
+
             return Ok(user);
         }
 
