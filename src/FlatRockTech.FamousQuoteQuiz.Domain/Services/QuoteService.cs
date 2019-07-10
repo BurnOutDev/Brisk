@@ -1,4 +1,6 @@
-﻿using FlatRockTech.FamousQuoteQuiz.Domain.Database;
+﻿using AutoMapper;
+using FlatRockTech.FamousQuoteQuiz.Domain.Database;
+using FlatRockTech.FamousQuoteQuiz.Domain.DTOs.Input;
 using FlatRockTech.FamousQuoteQuiz.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,31 +11,45 @@ namespace FlatRockTech.FamousQuoteQuiz.Domain
     public class QuoteService
     {
         private QuizContext _context;
+        private IMapper _mapper;
 
-        public QuoteService(QuizContext context)
+        public QuoteService(QuizContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public bool CheckAnswer(int quoteId, int authorId)
+        //public bool CheckAnswer(int quoteId, int authorId)
+        //{
+        //    var quote = _context.Quotes.Find(quoteId);
+        //    return quote.Author.Id == authorId;
+        //}
+
+        public IEnumerable<QuoteOutput> GetAll()
         {
-            var quote = _context.Quotes.Find(quoteId);
-            return quote.Author.Id == authorId;
+            var quotes = _mapper.Map<IEnumerable<QuoteOutput>>(_context.Quotes);
+            return quotes;
         }
 
-        public IEnumerable<User> GetAll()
+        public QuoteOutput GetById(int id)
         {
-            return _context.Users;
+            var quote = _mapper.Map<QuoteOutput>(_context.Quotes.Find(id));
+            return quote;
         }
 
-        public User GetById(int id)
+        public QuoteOutput Create(string content, int authorId)
         {
-            return _context.Users.Find(id);
-        }
+            var author = _context.Authors.Find(authorId);
+            var quote = new Quote
+            {
+                Author = author,
+                Content = content
+            };
+       
+            var entry = _context.Quotes.Add(quote);
+            var output = _mapper.Map<QuoteOutput>(quote);
 
-        public User Create(User user, string password)
-        {
-            return user;
+            return output;
         }
 
         public void Update(User userParam, string password = null)

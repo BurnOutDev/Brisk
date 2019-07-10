@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlatRockTech.FamousQuoteQuiz.Api", "FlatRockTech.FamousQuoteQuiz.Api\FlatRockTech.FamousQuoteQuiz.Api.csproj", "{2CF9ED0C-A5B8-4187-9EEB-08674F78FBE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatRockTech.FamousQuoteQuiz.Domain", "FlatRockTech.FamousQuoteQuiz.Domain\FlatRockTech.FamousQuoteQuiz.Domain.csproj", "{8F0F0A05-D907-4EC8-A310-B2BB8CBABF04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlatRockTech.FamousQuoteQuiz.Domain", "FlatRockTech.FamousQuoteQuiz.Domain\FlatRockTech.FamousQuoteQuiz.Domain.csproj", "{8F0F0A05-D907-4EC8-A310-B2BB8CBABF04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
