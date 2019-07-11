@@ -5,8 +5,8 @@ namespace Brisk.Application
 {
     public interface IGameService
     {
-        Player GetPlayerByUserId(int userId);
-        ICollection<AnsweredQuote> GetRandomQuotes();
+        Player PlayerByUserId(int userId);
+        ICollection<Answer> RandomQuotes(ICollection<Quote> except);
         Game StartNewGame(int userId);
     }
 }

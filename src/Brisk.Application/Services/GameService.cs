@@ -23,9 +23,11 @@ namespace Brisk.Application
 
         public Game StartNewGame(int userId)
         {
-            var player = GetPlayerByUserId(userId);
+            var player = PlayerByUserId(userId);
 
-            var quotes = GetRandomQuotes();
+            var exceptQuotes = AnsweredQuotesByPlayer(player);
+
+            var quotes = RandomQuotes(exceptQuotes);
 
             var game = new Game
             {
@@ -39,12 +41,12 @@ namespace Brisk.Application
             return game;
         }
 
-        public ICollection<AnsweredQuote> GetRandomQuotes()
+        public ICollection<Answer> RandomQuotes(ICollection<Quote> except)
         {
             var quotes = _context.Quotes
                 .OrderBy(element => Guid.NewGuid())
                 .Take(10)
-                .Select(quote => new AnsweredQuote
+                .Select(quote => new Answer
                 {
                     Quote = quote
                 }).ToHashSet();
@@ -52,7 +54,12 @@ namespace Brisk.Application
             return quotes;
         }
 
-        public Player GetPlayerByUserId(int userId)
+        public ICollection<Quote> AnsweredQuotesByPlayer(Player player)
+        {
+            return player.PlayedGames.SelectMany(game => game.AnsweredQuotes.Select(quote => quote.Quote)).ToHashSet();
+        }
+
+        public Player PlayerByUserId(int userId)
         {
             return _context.Players.FirstOrDefault(p => p.User.Id == userId);
         }

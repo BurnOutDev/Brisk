@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Brisk.Domain.Entities;
 using Brisk.Domain.Enums;
 using System;
+using Brisk.Domain.Entities.Shared;
 
 namespace Brisk.Persistence.Configurations
 {
@@ -20,6 +21,12 @@ namespace Brisk.Persistence.Configurations
                     x.ToString(),
                     x => (Role)Enum.Parse(typeof(Role), x))
                 .HasMaxLength(32);
+
+            Seed(builder);
+        }
+
+        public void Seed<T>(EntityTypeBuilder<T> builder) where T : BaseEntity
+        {
         }
     }
 }

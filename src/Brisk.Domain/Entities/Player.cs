@@ -14,6 +14,6 @@ namespace Brisk.Domain.Entities
         public User User { get; set; }
 
         public ICollection<Game> PlayedGames { get; set; }
-        public GameMode GameMode { get; set; }
+        public AnswerMode GameMode { get; set; }
     }
 }

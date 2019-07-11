@@ -8,11 +8,15 @@ namespace Brisk.Domain.Entities
     {
         public Game()
         {
-            AnsweredQuotes = new HashSet<AnsweredQuote>();
+            //AnsweredQuotes = new HashSet<Answer>();
         }
 
         public Player Player { get; set; }
-        public ICollection<AnsweredQuote> AnsweredQuotes { get; set; }
-        public GameMode GameMode { get; set; }
+        public AnswerMode GameMode { get; set; }
+
+        public ICollection<Answer> Answers { get; set; }
+        public ICollection<Question> Questions { get; set; }
+
+        public bool IsFinished { get; set; }
     }
 }

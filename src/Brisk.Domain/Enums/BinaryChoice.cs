@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Brisk.Domain.Enums
 {
-    public enum GameMode
+    public enum BinaryChoice
     {
-        Binary,
-        MultipleChoice
+        No,
+        Yes
     }
 }

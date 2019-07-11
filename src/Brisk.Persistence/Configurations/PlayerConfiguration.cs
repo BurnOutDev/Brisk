@@ -15,7 +15,7 @@ namespace Brisk.Persistence.Configurations
             builder.Property(p => p.GameMode)
                 .HasConversion(x =>
                     x.ToString(),
-                    x => (GameMode)Enum.Parse(typeof(GameMode), x))
+                    x => (AnswerMode)Enum.Parse(typeof(AnswerMode), x))
                 .HasMaxLength(32);
         }
     }

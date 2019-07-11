@@ -23,6 +23,6 @@ namespace Brisk.Persistence
         public DbSet<Author> Authors { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Player> Players { get; set; }
-        public DbSet<AnsweredQuote> AnsweredQuotes { get; set; }
+        public DbSet<Answer> AnsweredQuotes { get; set; }
     }
 }

@@ -6,9 +6,9 @@ using System;
 
 namespace Brisk.Persistence.Configurations
 {
-    public class AnsweredQuoteConfiguration : IEntityTypeConfiguration<AnsweredQuote>
+    public class AnsweredQuoteConfiguration : IEntityTypeConfiguration<Answer>
     {
-        public void Configure(EntityTypeBuilder<AnsweredQuote> builder)
+        public void Configure(EntityTypeBuilder<Answer> builder)
         {
             SharedConfiguration.Configure(builder);
         }
