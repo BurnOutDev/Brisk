@@ -4,6 +4,7 @@ using AutoMapper;
 using Brisk.Api.Extensions;
 using Brisk.Application;
 using Brisk.Domain.AutomapperProfiles;
+using Brisk.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

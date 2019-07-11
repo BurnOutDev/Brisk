@@ -23,18 +23,18 @@ namespace Brisk.Application
 
         public Game StartNewGame(int userId)
         {
-            //var player = PlayerByUserId(userId);
+            var player = PlayerByUserId(userId);
 
-            //var exceptQuotes = AnsweredQuotesByPlayer(player);
+            var answeredQuestions = AnsweredQuestionsByPlayer(player);
 
-            //var quotes = RandomQuotes(exceptQuotes);
+            var questions = RandomQuotesExcept(answeredQuestions);
 
-            //var game = new Game
-            //{
-            //    GameMode = player.GameMode,
-            //    Player = player,
-            //    //AnsweredQuotes = quotes
-            //};
+            var game = new Game
+            {
+                GameMode = player.GameMode,
+                Player = player,
+                Questions = questions
+            };
 
             //_context.SaveChanges();
 
@@ -42,29 +42,28 @@ namespace Brisk.Application
             return null;
         }
 
-        public ICollection<Answer> RandomQuotes(ICollection<Quote> except)
+        public ICollection<Question> RandomQuotesExcept(ICollection<Question> except)
         {
-            //var quotes = _context.Quotes
-            //    .OrderBy(element => Guid.NewGuid())
-            //    .Take(10)
-            //    .Select(quote => new Answer
-            //    {
-            //        Choice = quote
-            //    }).ToHashSet();
+            var quotes = _context.Question
+                .Except(except)
+                .OrderBy(element => Guid.NewGuid())
+                .Take(10)
+                .ToHashSet();
 
-            //return quotes;
-            return null;
+            return quotes;
         }
 
-        public ICollection<Quote> AnsweredQuotesByPlayer(Player player)
+        public ICollection<Question> AnsweredQuestionsByPlayer(Player player)
         {
-            //return player.PlayedGames.SelectMany(game => game.AnsweredQuotes.Select(quote => quote.Quote)).ToHashSet();
-            return null;
+            return player.PlayedGames
+                .SelectMany(game => game.Questions)
+                .ToHashSet();
         }
 
         public Player PlayerByUserId(int userId)
         {
-            return _context.Players.FirstOrDefault(p => p.User.Id == userId);
+            return _context.Players
+                .FirstOrDefault(p => p.User.Id == userId);
         }
     }
 }

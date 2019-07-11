@@ -1,19 +1,13 @@
-﻿using Brisk.Domain.Entities.Shared;
-using Brisk.Domain.Enums;
+﻿using Brisk.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Brisk.Domain.Entities
+namespace Brisk.Domain.Models
 {
-    public class Game : BaseEntity
+    public class GameModel
     {
-        public Game()
-        {
-            Answers = new HashSet<Answer>();
-            Questions = new HashSet<Question>();
-        }
-
-        public Player Player { get; set; }
+        public int GameId { get; set; }
 
         public AnswerMode GameMode { get; set; }
         public int QuestionCount { get; set; }
