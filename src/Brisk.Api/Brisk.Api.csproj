@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FlatRockTech.FamousQuoteQuiz.Domain\FlatRockTech.FamousQuoteQuiz.Domain.csproj" />
+    <ProjectReference Include="..\Brisk.Domain\Brisk.Domain.csproj" />
   </ItemGroup>
 
 </Project>
