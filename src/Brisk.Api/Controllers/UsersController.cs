@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using FlatRockTech.FamousQuoteQuiz.Domain;
-using FlatRockTech.FamousQuoteQuiz.Domain.Entities;
-using FlatRockTech.FamousQuoteQuiz.Domain.DTOs;
+using Brisk.Domain;
+using Brisk.Domain.Entities;
+using Brisk.Domain.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -14,7 +14,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlatRockTech.FamousQuoteQuiz.Api.Controllers
+namespace Brisk.Api.Controllers
 {
     [Authorize]
     [ApiController]

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FlatRockTech.FamousQuoteQuiz.Domain.DTOs.Input
+namespace Brisk.Domain.DTOs.Input
 {
     public class QuoteInput
     {

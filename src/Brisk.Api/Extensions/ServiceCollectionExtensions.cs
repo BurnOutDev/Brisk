@@ -9,12 +9,12 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
-using FlatRockTech.FamousQuoteQuiz.Domain;
-using FlatRockTech.FamousQuoteQuiz.Domain.Database;
+using Brisk.Domain;
+using Brisk.Domain.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace FlatRockTech.FamousQuoteQuiz.Api.Extensions
+namespace Brisk.Api.Extensions
 {
     public static class ServiceCollectionExtensions
     {

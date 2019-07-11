@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FlatRockTech.FamousQuoteQuiz.Domain.Entities
+namespace Brisk.Domain.Entities
 {
     public class Author : BaseEntity
     {

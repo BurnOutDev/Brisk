@@ -1,5 +1,5 @@
-﻿using FlatRockTech.FamousQuoteQuiz.Domain.Entities;
-using FlatRockTech.FamousQuoteQuiz.Domain.Enums;
+﻿using Brisk.Domain.Entities;
+using Brisk.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration.FileExtensions;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace FlatRockTech.FamousQuoteQuiz.Domain.Database
+namespace Brisk.Domain.Database
 {
     public class QuizContext : DbContext
     {

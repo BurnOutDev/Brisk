@@ -1,4 +1,4 @@
-﻿namespace FlatRockTech.FamousQuoteQuiz.Api
+﻿namespace Brisk.Api
 {
     public class AppSettings
     {

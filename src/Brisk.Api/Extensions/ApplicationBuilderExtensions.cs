@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace FlatRockTech.FamousQuoteQuiz.Api.Extensions
+namespace Brisk.Api.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace FlatRockTech.FamousQuoteQuiz.Domain.Entities
+namespace Brisk.Domain.Entities
 {
     public class BaseEntity
     {

@@ -1,8 +1,8 @@
-﻿using FlatRockTech.FamousQuoteQuiz.Domain.DTOs;
-using FlatRockTech.FamousQuoteQuiz.Domain.Entities;
+﻿using Brisk.Domain.DTOs;
+using Brisk.Domain.Entities;
 using System.Collections.Generic;
 
-namespace FlatRockTech.FamousQuoteQuiz.Domain
+namespace Brisk.Domain
 {
     public interface IUserService
     {

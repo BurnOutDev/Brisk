@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using FlatRockTech.FamousQuoteQuiz.Domain.Database;
-using FlatRockTech.FamousQuoteQuiz.Domain.DTOs.Input;
-using FlatRockTech.FamousQuoteQuiz.Domain.Entities;
+using Brisk.Domain.Database;
+using Brisk.Domain.DTOs.Input;
+using Brisk.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FlatRockTech.FamousQuoteQuiz.Domain
+namespace Brisk.Domain
 {
     public class QuoteService
     {

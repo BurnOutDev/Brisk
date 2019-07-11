@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FlatRockTech.FamousQuoteQuiz.Domain.Enums
+namespace Brisk.Domain.Enums
 {
     public enum Role
     {

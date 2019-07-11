@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using FlatRockTech.FamousQuoteQuiz.Domain.Entities;
-using FlatRockTech.FamousQuoteQuiz.Domain.DTOs;
+using Brisk.Domain.Entities;
+using Brisk.Domain.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FlatRockTech.FamousQuoteQuiz.Domain.AutomapperProfiles
+namespace Brisk.Domain.AutomapperProfiles
 {
     public class AutoMapperProfile : Profile
     {

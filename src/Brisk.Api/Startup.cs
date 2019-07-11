@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using FlatRockTech.FamousQuoteQuiz.Api.Extensions;
-using FlatRockTech.FamousQuoteQuiz.Domain;
-using FlatRockTech.FamousQuoteQuiz.Domain.AutomapperProfiles;
-using FlatRockTech.FamousQuoteQuiz.Domain.Database;
+using Brisk.Api.Extensions;
+using Brisk.Domain;
+using Brisk.Domain.AutomapperProfiles;
+using Brisk.Domain.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,7 +20,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace FlatRockTech.FamousQuoteQuiz.Api
+namespace Brisk.Api
 {
     public class Startup
     {

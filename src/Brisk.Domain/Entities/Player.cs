@@ -1,9 +1,9 @@
-﻿using FlatRockTech.FamousQuoteQuiz.Domain.Enums;
+﻿using Brisk.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FlatRockTech.FamousQuoteQuiz.Domain.Entities
+namespace Brisk.Domain.Entities
 {
     public class Player : BaseEntity
     {
