@@ -9,8 +9,8 @@ namespace Brisk.Persistence
 
         public BriskDbContext(DbContextOptions<BriskDbContext> options) : base(options)
         {
-            //Database.EnsureCreated();
-            Database.Migrate();
+            Database.EnsureCreated();
+            //Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -23,6 +23,8 @@ namespace Brisk.Persistence
         public DbSet<Author> Authors { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Player> Players { get; set; }
-        public DbSet<Answer> AnsweredQuotes { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Choice> Choices { get; set; }
+        public DbSet<Question> Question { get; set; }
     }
 }

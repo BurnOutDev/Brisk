@@ -23,40 +23,43 @@ namespace Brisk.Application
 
         public Game StartNewGame(int userId)
         {
-            var player = PlayerByUserId(userId);
+            //var player = PlayerByUserId(userId);
 
-            var exceptQuotes = AnsweredQuotesByPlayer(player);
+            //var exceptQuotes = AnsweredQuotesByPlayer(player);
 
-            var quotes = RandomQuotes(exceptQuotes);
+            //var quotes = RandomQuotes(exceptQuotes);
 
-            var game = new Game
-            {
-                GameMode = player.GameMode,
-                Player = player,
-                AnsweredQuotes = quotes
-            };
+            //var game = new Game
+            //{
+            //    GameMode = player.GameMode,
+            //    Player = player,
+            //    //AnsweredQuotes = quotes
+            //};
 
-            _context.SaveChanges();
+            //_context.SaveChanges();
 
-            return game;
+            //return game;
+            return null;
         }
 
         public ICollection<Answer> RandomQuotes(ICollection<Quote> except)
         {
-            var quotes = _context.Quotes
-                .OrderBy(element => Guid.NewGuid())
-                .Take(10)
-                .Select(quote => new Answer
-                {
-                    Quote = quote
-                }).ToHashSet();
+            //var quotes = _context.Quotes
+            //    .OrderBy(element => Guid.NewGuid())
+            //    .Take(10)
+            //    .Select(quote => new Answer
+            //    {
+            //        Choice = quote
+            //    }).ToHashSet();
 
-            return quotes;
+            //return quotes;
+            return null;
         }
 
         public ICollection<Quote> AnsweredQuotesByPlayer(Player player)
         {
-            return player.PlayedGames.SelectMany(game => game.AnsweredQuotes.Select(quote => quote.Quote)).ToHashSet();
+            //return player.PlayedGames.SelectMany(game => game.AnsweredQuotes.Select(quote => quote.Quote)).ToHashSet();
+            return null;
         }
 
         public Player PlayerByUserId(int userId)
