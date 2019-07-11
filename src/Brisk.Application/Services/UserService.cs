@@ -1,19 +1,19 @@
 ﻿using AutoMapper;
-using Brisk.Domain.Database;
 using Brisk.Domain.DTOs;
 using Brisk.Domain.Entities;
+using Brisk.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Brisk.Domain
+namespace Brisk.Application
 {
     public class UserService : IUserService
     {
-        private QuizContext _context;
+        private BriskDbContext _context;
         private IMapper _mapper;
 
-        public UserService(QuizContext context, IMapper mapper)
+        public UserService(BriskDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

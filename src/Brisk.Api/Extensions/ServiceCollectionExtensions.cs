@@ -1,18 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
-using Brisk.Domain;
-using Brisk.Domain.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
+using Brisk.Persistence;
+using Brisk.Application;
 
 namespace Brisk.Api.Extensions
 {
@@ -45,7 +37,7 @@ namespace Brisk.Api.Extensions
              .AddJsonFile("appsettings.json")
              .Build();
 
-            services.AddDbContext<QuizContext>(x=> x.UseSqlServer(config.GetConnectionString("Connection")));
+            services.AddDbContext<BriskDbContext>(x=> x.UseSqlServer(config.GetConnectionString("Connection")));
             return services;
         }
 

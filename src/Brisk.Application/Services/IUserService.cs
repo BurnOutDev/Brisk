@@ -2,7 +2,7 @@
 using Brisk.Domain.Entities;
 using System.Collections.Generic;
 
-namespace Brisk.Domain
+namespace Brisk.Application
 {
     public interface IUserService
     {

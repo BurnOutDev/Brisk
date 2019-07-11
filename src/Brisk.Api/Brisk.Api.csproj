@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Brisk.Application\Brisk.Application.csproj" />
     <ProjectReference Include="..\Brisk.Domain\Brisk.Domain.csproj" />
   </ItemGroup>
 
