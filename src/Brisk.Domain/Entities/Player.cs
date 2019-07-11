@@ -11,6 +11,8 @@ namespace Brisk.Domain.Entities
             PlayedGames = new HashSet<Game>();
         }
 
+        public User User { get; set; }
+
         public ICollection<Game> PlayedGames { get; set; }
         public GameMode GameMode { get; set; }
     }

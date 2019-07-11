@@ -45,6 +45,7 @@ namespace Brisk.Api.Extensions
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IQuoteService, QuoteService>();
+            services.AddScoped<IGameService, GameService>();
             return services;
         }
     }

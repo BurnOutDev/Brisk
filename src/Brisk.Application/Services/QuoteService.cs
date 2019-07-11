@@ -34,16 +34,7 @@ namespace Brisk.Application
 
         public QuoteOutput Create(string content, string authorName, int? authorId)
         {
-            var author = new Author();
-
-            if (authorId == null)
-            {
-                _context.Authors.Add(new Author
-                {
-                    Name = authorName
-                });
-            }
-            else { author = _context.Authors.Find(authorId); }
+            var author = FindOrCreateAuthor(authorId, authorName);
 
             var quote = new Quote
             {
@@ -62,7 +53,8 @@ namespace Brisk.Application
         public void Update(int id, string content, string authorName, int? authorId)
         {
             var quote = _context.Find<Quote>(id);
-            var author = _context.Find<Author>(authorId);
+            var author = FindOrCreateAuthor(authorId, authorName);
+
             quote.Content = content;
             quote.Author = author;
 
@@ -78,6 +70,25 @@ namespace Brisk.Application
                 _context.Quotes.Remove(quote);
                 _context.SaveChanges();
             }
+        }
+
+        private Author FindOrCreateAuthor(int? authorId, string authorName)
+        {
+            var author = new Author();
+
+            if (authorId == null)
+            {
+                _context.Authors.Add(new Author
+                {
+                    Name = authorName
+                });
+            }
+            else
+            {
+                author = _context.Authors.Find(authorId);
+            }
+
+            return author;
         }
     }
 }
