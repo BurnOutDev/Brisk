@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Brisk.Domain.DTOs;
 using Brisk.Domain.Entities;
+using Brisk.Domain.Models;
 using Brisk.Persistence;
 using System;
 using System.Collections.Generic;
@@ -39,7 +39,7 @@ namespace Brisk.Application
             return token;
         }
 
-        IEnumerable<UserOutput> IUserService.GetAll()
+        public IEnumerable<UserOutput> GetAll()
         {
             var users = _mapper.Map<IList<UserOutput>>(_context.Users);
             return users;
@@ -120,8 +120,7 @@ namespace Brisk.Application
             }
         }
 
-        // private helper methods
-
+        #region Helper Methods
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             if (password == null) throw new ArgumentNullException("password");
@@ -152,5 +151,7 @@ namespace Brisk.Application
 
             return true;
         }
+
+        #endregion
     }
 }

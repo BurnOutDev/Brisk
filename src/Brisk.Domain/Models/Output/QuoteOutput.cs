@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Brisk.Domain.Entities;
 
-namespace Brisk.Domain.DTOs.Input
+namespace Brisk.Domain.Models
 {
     public class QuoteOutput
     {

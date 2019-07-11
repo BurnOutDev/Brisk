@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Brisk.Domain.Entities.Shared;
 
 namespace Brisk.Domain.Entities
 {
@@ -7,7 +6,9 @@ namespace Brisk.Domain.Entities
     {
         public Quote Quote { get; set; }
         public Author Answer { get; set; }
-        public bool IsRight { get
+        public bool IsRight
+        {
+            get
             {
                 return Quote.Author.Id == Answer.Id;
             }

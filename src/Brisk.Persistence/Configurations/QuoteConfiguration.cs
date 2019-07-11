@@ -13,6 +13,8 @@ namespace Brisk.Persistence.Configurations
             SharedConfiguration.Configure(builder);
 
             builder.Property(p => p.Content).HasMaxLength(512);
+
+            builder.HasOne(p => p.Author).WithMany(x => x.Quotes);
         }
     }
 }

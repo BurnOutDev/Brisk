@@ -9,7 +9,8 @@ namespace Brisk.Persistence
 
         public BriskDbContext(DbContextOptions<BriskDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
+            Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

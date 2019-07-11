@@ -44,6 +44,7 @@ namespace Brisk.Api.Extensions
         public static IServiceCollection AddDI(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IQuoteService, QuoteService>();
             return services;
         }
     }

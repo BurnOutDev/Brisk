@@ -1,7 +1,5 @@
-﻿using Brisk.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Brisk.Domain.Entities.Shared;
+using Brisk.Domain.Enums;
 
 namespace Brisk.Domain.Entities
 {

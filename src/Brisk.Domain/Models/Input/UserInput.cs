@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Brisk.Domain.DTOs
+namespace Brisk.Domain.Models
 {
-    public class AuthenticationInput
+    public class UserInput
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
     }

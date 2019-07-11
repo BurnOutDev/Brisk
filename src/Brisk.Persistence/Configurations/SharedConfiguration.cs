@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Brisk.Domain.Entities;
 using Brisk.Domain.Enums;
 using System;
+using Brisk.Domain.Entities.Shared;
 
 namespace Brisk.Persistence.Configurations
 {

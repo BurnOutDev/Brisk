@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Brisk.Domain.DTOs.Input;
 using Brisk.Domain.Entities;
+using Brisk.Domain.Models;
 using Brisk.Persistence;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Brisk.Application
 {
-    public class QuoteService
+    public class QuoteService : IQuoteService
     {
         private BriskDbContext _context;
         private IMapper _mapper;
@@ -19,15 +19,10 @@ namespace Brisk.Application
             _mapper = mapper;
         }
 
-        //public bool CheckAnswer(int quoteId, int authorId)
-        //{
-        //    var quote = _context.Quotes.Find(quoteId);
-        //    return quote.Author.Id == authorId;
-        //}
-
         public IEnumerable<QuoteOutput> GetAll()
         {
             var quotes = _mapper.Map<IEnumerable<QuoteOutput>>(_context.Quotes);
+
             return quotes;
         }
 
@@ -37,32 +32,50 @@ namespace Brisk.Application
             return quote;
         }
 
-        public QuoteOutput Create(string content, int authorId)
+        public QuoteOutput Create(string content, string authorName, int? authorId)
         {
-            var author = _context.Authors.Find(authorId);
+            var author = new Author();
+
+            if (authorId == null)
+            {
+                _context.Authors.Add(new Author
+                {
+                    Name = authorName
+                });
+            }
+            else { author = _context.Authors.Find(authorId); }
+
             var quote = new Quote
             {
                 Author = author,
                 Content = content
             };
-       
+
             var entry = _context.Quotes.Add(quote);
+            _context.SaveChanges();
+
             var output = _mapper.Map<QuoteOutput>(quote);
 
             return output;
         }
 
-        public void Update(User userParam, string password = null)
+        public void Update(int id, string content, string authorName, int? authorId)
         {
+            var quote = _context.Find<Quote>(id);
+            var author = _context.Find<Author>(authorId);
+            quote.Content = content;
+            quote.Author = author;
+
+            _context.Quotes.Update(quote);
             _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var user = _context.Users.Find(id);
-            if (user != null)
+            var quote = _context.Quotes.Find(id);
+            if (quote != null)
             {
-                _context.Users.Remove(user);
+                _context.Quotes.Remove(quote);
                 _context.SaveChanges();
             }
         }

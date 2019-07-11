@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Brisk.Domain.DTOs
+namespace Brisk.Domain.Models
 {
     public class AuthenticationOutput
     {

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Brisk.Domain.Entities;
-using Brisk.Domain.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Brisk.Domain.Models;
 
 namespace Brisk.Domain.AutomapperProfiles
 {
@@ -13,10 +13,18 @@ namespace Brisk.Domain.AutomapperProfiles
         {
             CreateMap<AuthenticationInput, User>();
             CreateMap<UserInput, User>();
-            CreateMap<UpdateUserInput, User>();
             CreateMap<UserInput, User>();
             CreateMap<User, AuthenticationOutput>();
             CreateMap<User, UserOutput>();
+
+            CreateMap<Quote, QuoteOutput>()
+                .ForMember(
+                    member => member.Author, 
+                    options => options.MapFrom(
+                        source => source.Author.Name))
+                .ForMember(member => member.AuthorId,
+                    options => options.MapFrom(
+                        source => source.Author.Id));
         }
     }
 }

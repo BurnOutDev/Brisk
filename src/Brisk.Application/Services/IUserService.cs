@@ -1,5 +1,5 @@
-﻿using Brisk.Domain.DTOs;
-using Brisk.Domain.Entities;
+﻿using Brisk.Domain.Entities;
+using Brisk.Domain.Models;
 using System.Collections.Generic;
 
 namespace Brisk.Application
