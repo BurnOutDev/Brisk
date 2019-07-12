@@ -9,34 +9,58 @@
         <div class="panel panel-default">
             <div class="text-center">
                 <div class="btn-group special">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block rounded-0" title="Settings"><i class="fa fa-list" aria-hidden="true"></i></button>
-                    <button type="button" class="btn btn-secondary btn-lg btn-block rounded-0" title="New Game"><i class="fa fa-gamepad" aria-hidden="true"></i></button>
+                    <button id="settings-btn" type="button" class="btn btn-secondary btn-lg btn-block rounded-0" title="Settings"><i class="fa fa-list" aria-hidden="true"></i></button>
+                    <button id="new-game-btn" type="button" class="btn btn-secondary btn-lg btn-block rounded-0" title="New Game"><i class="fa fa-gamepad" aria-hidden="true"></i></button>
                 </div>
             </div>
-            <div class="p-3">
-                <div class="text-left">
-                    <h4>Who Said It?</h4>
+            <div id="content-container">
+                <div class="p-3">
+                    <div class="text-left">
+                        <h4>Who Said It?</h4>
+                    </div>
+                    <div id="question-text" class="alert alert-danger">
+                        Translation is the paradigm, the exemplar of all writing. It is translation that demonstrates most vividly the yearning for transformation that underlies every act involving speech, that supremely human gift.
+                    </div>
+                    <div class="text-center binary-choice-element">
+                        <p id="binary-choice-author">Harry Burchell Mathews?</p>
+                    </div>
                 </div>
-                <div id="question-text" class="alert alert-danger">
-                    Translation is the paradigm, the exemplar of all writing. It is translation that demonstrates most vividly the yearning for transformation that underlies every act involving speech, that supremely human gift.
+                <div id="binary-choice-container" class="binary-choice-element btn-toolbar justify-content-between mx-5 pb-3 pt-5 d-none">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success">Yes</button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger">No</button>
+                    </div>
                 </div>
-                <div class="text-center binary-choice-element">
-                    <p id="binary-choice-author">Harry Burchell Mathews?</p>
+                <div id="binary-choice-container" class="multiple-choice-element btn-toolbar justify-content-center mx-5 pb-3">
+                    <div class="btn-group-vertical special w-100">
+                        <button id="choice-1-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"> -> <span id="choice-1-text">Yes</span></button>
+                        <button id="choice-2-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"> -> <span id="choice-2-text">No</span></button>
+                        <button id="choice-3-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"> -> <span id="choice-3-text">Yes</span></button>
+                    </div>
                 </div>
             </div>
-            <div id="binary-choice-container" class="binary-choice-element btn-toolbar justify-content-between mx-5 pb-3 pt-5 d-none">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-success">Yes</button>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-danger">No</button>
-                </div>
-            </div>
-            <div id="binary-choice-container" class="multiple-choice-element btn-toolbar justify-content-center mx-5 pb-3">
-                <div class="btn-group-vertical special w-100">
-                    <button id="choice-1-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"> -> <span id="choice-1-text">Yes</span></button>
-                    <button id="choice-2-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"> -> <span id="choice-2-text">No</span></button>
-                    <button id="choice-3-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"> -> <span id="choice-3-text">Yes</span></button>
+            <div id="settings-container" class="hidden">
+                <div class="p-3">
+                    <div class="text-left">
+                        <h4>Settings</h4>
+                    </div>
+                    <div class="form-group bd-callout bd-callout-warning">
+                        <label>Game Mode</label>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio1">Binary Choice</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio2">Multiple Choice</label>
+                        </div>
+                    </div>
+                    <div class="form-group bd-callout bd-callout-warning">
+                        <label for="exampleInputEmail1">Question Count</label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter question count">
+                    </div>
                 </div>
             </div>
         </div>
