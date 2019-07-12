@@ -12,8 +12,11 @@ namespace Brisk.Domain.Entities
         }
 
         public Quote Quote { get; set; }
-        public ICollection<Choice> Choices { get; set; }
-        public BinaryChoice Answer { get; set; }
+        public Game Game { get; set; }
+
         public AnswerMode AnswerMode { get; set; }
+        public QuestionStatus Status { get; set; }
+
+        public ICollection<Choice> Choices { get; set; }
     }
 }

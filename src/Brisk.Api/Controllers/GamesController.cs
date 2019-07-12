@@ -41,9 +41,19 @@ namespace Brisk.Api.Controllers
         }
 
         [HttpGet]
+        [Route("start-new-game")]
         public IActionResult StartNewGame()
         {
             var output = _gameService.StartNewGame(_userService.UserId);
+
+            return Ok(output);
+        }
+
+        [HttpPost]
+        [Route("answer")]
+        public IActionResult StartNewGame(AnswerModel answer)
+        {
+            var output = _gameService.Answer(answer, _userService.UserId);
 
             return Ok(output);
         }

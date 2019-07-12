@@ -1,4 +1,5 @@
 ﻿using Brisk.Domain.Entities.Shared;
+using Brisk.Domain.Enums;
 
 namespace Brisk.Domain.Entities
 {
@@ -7,5 +8,8 @@ namespace Brisk.Domain.Entities
         public Question Question { get; set; }
         public Choice Choice { get; set; }
         public Game Game { get; set; }
+
+        public BinaryChoice BinaryAnswer { get; set; }
+        public AnswerMode AnswerMode { get; set; }
     }
 }

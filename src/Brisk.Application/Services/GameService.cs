@@ -44,34 +44,39 @@ namespace Brisk.Application
 
             var questionModels = new HashSet<QuestionModel>();
 
-            foreach (var question in game.Questions)
-            {
-                var hs = new QuestionModel
-                {
-                    Quote = question.Quote.Content,
-                    QuestionId = question.Id,
-                    Choices = question.Choices.Select(choice => new ChoiceModel
-                    {
-                        AuthorName = choice.Author.Name,
-                        ChoiceId = choice.Id
-                    }).ToHashSet()
-                };
-            }
-
-            //var s = game.Questions.Select(question => new QuestionModel
-            //{
-            //    Quote = question.Quote.Content,
-            //    QuestionId = question.Id,
-            //    Choices = question.Choices.Select(choice => new ChoiceModel
-            //    {
-            //        AuthorName = choice.Author.Name,
-            //        ChoiceId = choice.Id
-            //    }).ToHashSet()
-            //});
-
             var gameModel = _mapper.Map<GameModel>(game);
 
             return gameModel;
+        }
+        public AnswerResponseModel Answer(AnswerModel answer, int userId)
+        {
+            var response = new AnswerResponseModel();
+
+            var game = _context.Games.ById(answer.GameId).FirstOrDefault();
+
+            var choice = _context.Choices
+                .Include(fk => fk.Question)
+                .Include(fk => fk.Author)
+                .Include(fk => fk.Question.Quote)
+                .ById(answer.ChoiceId)
+                .FirstOrDefault();
+            
+            _context.Add(new Answer
+            {
+                AnswerMode = game.AnswerMode,
+                BinaryAnswer = answer.BinaryChoice,
+                Choice = choice,
+                Game = game,
+                Question = choice.Question
+            });
+
+            choice.Question.Status = QuestionStatus.Answered;
+
+            _context.SaveChanges();
+
+            response.IsCorrect = choice.Question.Quote.Author == choice.Author;
+
+            return response;
         }
 
         private ICollection<Quote> RandomQuotesExcept(ICollection<Quote> except, int count)

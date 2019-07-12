@@ -33,11 +33,6 @@ namespace Brisk.Persistence.Extensions
             return source.Skip(skip).Take(count);
         }
 
-        public static IQueryable<T> GetActiveEntities<T>(this IQueryable<T> source) where T : IBaseEntity
-        {
-            return source.Where(entity => !entity.IsDeleted);
-        }
-
         public static IQueryable<T> LocalOrDatabase<T>(this DbContext context, Expression<Func<T, bool>> expression)
             where T : class
         {
@@ -50,5 +45,18 @@ namespace Brisk.Persistence.Extensions
 
             return databaseResults;
         }
+
+        public static IQueryable<T> ChoiceWithQuestion<T>(this DbContext context, Expression<Func<T, bool>> expression) where T : class
+        {
+            var localResults = context.Set<T>().Local.Where(expression.Compile());
+
+            var enumerable = localResults.ToList();
+            if (enumerable.Any()) return enumerable.AsQueryable();
+
+            var databaseResults = context.Set<T>().Where(expression);
+
+            return databaseResults;
+        }
+
     }
 }
