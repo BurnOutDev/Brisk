@@ -12,5 +12,6 @@ namespace Brisk.Application
         UserOutput Create(string firstName, string lastName, string username, string password);
         void Update(int id, string firstName, string lastName, string username, string password = null);
         void Delete(int id);
+        int UserId { get; set; }
     }
 }

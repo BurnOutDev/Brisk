@@ -73,6 +73,9 @@ namespace Brisk.Api
                         {
                             context.Fail("Unauthorized");
                         }
+
+                        userService.UserId = userId;
+
                         return Task.CompletedTask;
                     }
                 };

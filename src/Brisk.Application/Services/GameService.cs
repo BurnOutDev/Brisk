@@ -12,16 +12,14 @@ namespace Brisk.Application
     {
         private BriskDbContext _context;
         private IMapper _mapper;
-        private IUserService _userService;
 
-        public GameService(BriskDbContext context, IUserService userService, IMapper mapper)
+        public GameService(BriskDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _userService = userService;
         }
 
-        public Game StartNewGame(int userId)
+        public GameModel StartNewGame(int userId)
         {
             var player = PlayerByUserId(userId);
 
@@ -33,16 +31,19 @@ namespace Brisk.Application
             {
                 GameMode = player.GameMode,
                 Player = player,
-                Questions = questions
+                Questions = questions,
+                QuestionCount = player.QuestionCount
             };
 
-            //_context.SaveChanges();
+            _context.Add(game);
+            _context.SaveChanges();
 
-            //return game;
-            return null;
+            var gameModel = _mapper.Map<GameModel>(game);
+
+            return gameModel;
         }
 
-        public ICollection<Question> RandomQuotesExcept(ICollection<Question> except)
+        private ICollection<Question> RandomQuotesExcept(ICollection<Question> except)
         {
             var quotes = _context.Question
                 .Except(except)
@@ -52,15 +53,13 @@ namespace Brisk.Application
 
             return quotes;
         }
-
-        public ICollection<Question> AnsweredQuestionsByPlayer(Player player)
+        private ICollection<Question> AnsweredQuestionsByPlayer(Player player)
         {
             return player.PlayedGames
                 .SelectMany(game => game.Questions)
                 .ToHashSet();
         }
-
-        public Player PlayerByUserId(int userId)
+        private Player PlayerByUserId(int userId)
         {
             return _context.Players
                 .FirstOrDefault(p => p.User.Id == userId);

@@ -13,6 +13,8 @@ namespace Brisk.Application
         private BriskDbContext _context;
         private IMapper _mapper;
 
+        public int UserId { get; set; }
+
         public UserService(BriskDbContext context, IMapper mapper)
         {
             _context = context;

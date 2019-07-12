@@ -74,21 +74,24 @@ namespace Brisk.Application
 
         private Author FindOrCreateAuthor(int? authorId, string authorName)
         {
-            var author = new Author();
+            var author = _context.Authors.Find(authorId);
 
-            if (authorId == null)
+            if (author == null)
             {
-                _context.Authors.Add(new Author
+                author = new Author
                 {
                     Name = authorName
-                });
-            }
-            else
-            {
-                author = _context.Authors.Find(authorId);
+                };
             }
 
             return author;
+        }
+
+        private QuestionModel GenerateQuestion(Quote quote)
+        {
+            var question = new Question();
+            question.Quote = quote;
+            question.Choices.Add()
         }
     }
 }

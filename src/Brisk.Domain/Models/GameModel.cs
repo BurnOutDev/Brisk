@@ -12,9 +12,6 @@ namespace Brisk.Domain.Models
         public AnswerMode GameMode { get; set; }
         public int QuestionCount { get; set; }
 
-        public DateTime FinishedDate { get; set; }
-
-        public ICollection<Answer> Answers { get; set; }
-        public ICollection<Question> Questions { get; set; }
+        public ICollection<QuestionModel> Questions { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Brisk.Domain.Models
 {
-    class QuestionModel
+    public class QuestionModel
     {
         public int QuestionId { get; set; }
         public string Quote { get; set; }

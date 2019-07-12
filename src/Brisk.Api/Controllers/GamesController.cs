@@ -20,7 +20,7 @@ namespace Brisk.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class QuotesController : ControllerBase
+    public class GamesController : ControllerBase
     {
         private IUserService _userService;
         private IQuoteService _quoteService;
@@ -28,24 +28,23 @@ namespace Brisk.Api.Controllers
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        public QuotesController(
+        public GamesController(
             IUserService userService,
-            IQuoteService quoteService,
             IGameService gameService,
             IMapper mapper,
             IOptions<AppSettings> appSettings)
         {
             _userService = userService;
-            _quoteService = quoteService;
             _mapper = mapper;
             _appSettings = appSettings.Value;
             _gameService = gameService;
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody]QuoteInput quote)
+        public IActionResult StartNewGame()
         {
-            var output = _quoteService.Create(quote.Content, quote.AuthorName, quote.AuthorId);
+            var output = _gameService.StartNewGame(_userService.UserId);
+
             return Ok(output);
         }
 
