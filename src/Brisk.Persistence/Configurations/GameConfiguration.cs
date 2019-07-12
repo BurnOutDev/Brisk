@@ -12,7 +12,7 @@ namespace Brisk.Persistence.Configurations
         {
             SharedConfiguration.Configure(builder);
             
-            builder.Property(p => p.GameMode)
+            builder.Property(p => p.AnswerMode)
                 .HasConversion(x =>
                     x.ToString(),
                     x => (AnswerMode)Enum.Parse(typeof(AnswerMode), x))

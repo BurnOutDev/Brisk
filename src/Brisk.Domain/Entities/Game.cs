@@ -15,7 +15,7 @@ namespace Brisk.Domain.Entities
 
         public Player Player { get; set; }
 
-        public AnswerMode GameMode { get; set; }
+        public AnswerMode AnswerMode { get; set; }
         public int QuestionCount { get; set; }
 
         public DateTime FinishedDate { get; set; }

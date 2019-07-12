@@ -6,12 +6,11 @@ using System;
 
 namespace Brisk.Persistence.Configurations
 {
-    public class PlayerConfiguration : IEntityTypeConfiguration<Player>
+    public class QuestionConfiguration : IEntityTypeConfiguration<Question>
     {
-        public void Configure(EntityTypeBuilder<Player> builder)
+        public void Configure(EntityTypeBuilder<Question> builder)
         {
             SharedConfiguration.Configure(builder);
-
             builder.Property(p => p.AnswerMode)
                 .HasConversion(x =>
                     x.ToString(),

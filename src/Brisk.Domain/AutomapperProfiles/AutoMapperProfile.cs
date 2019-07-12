@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Brisk.Domain.Models;
 using System.Linq;
+using Brisk.Domain.Enums;
 
 namespace Brisk.Domain.AutomapperProfiles
 {
@@ -43,7 +44,11 @@ namespace Brisk.Domain.AutomapperProfiles
                            AuthorName = choice.Author.Name,
                            ChoiceId = choice.Id
                        }).ToHashSet()
-                   })));
+                   })))
+            .ForMember(
+               member => member.AnswerMode,
+               options => options.MapFrom(
+                  source => (AnswerMode)Enum.Parse(typeof(AnswerMode), source.AnswerMode.ToString())));
         }
     }
 }

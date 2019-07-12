@@ -1,4 +1,5 @@
 ﻿using Brisk.Domain.Entities.Shared;
+using Brisk.Domain.Enums;
 using System.Collections.Generic;
 
 namespace Brisk.Domain.Entities
@@ -12,5 +13,7 @@ namespace Brisk.Domain.Entities
 
         public Quote Quote { get; set; }
         public ICollection<Choice> Choices { get; set; }
+        public BinaryChoice Answer { get; set; }
+        public AnswerMode AnswerMode { get; set; }
     }
 }

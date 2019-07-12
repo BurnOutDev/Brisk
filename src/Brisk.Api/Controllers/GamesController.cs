@@ -18,12 +18,12 @@ using Brisk.Domain.Models;
 
 namespace Brisk.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class GamesController : ControllerBase
     {
         private IUserService _userService;
-        private IQuoteService _quoteService;
         private IGameService _gameService;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
@@ -40,51 +40,12 @@ namespace Brisk.Api.Controllers
             _gameService = gameService;
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult StartNewGame()
         {
             var output = _gameService.StartNewGame(_userService.UserId);
 
             return Ok(output);
-        }
-
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            _gameService.StartNewGame(_userService.UserId);
-
-            var quotes = _quoteService.GetAll();
-            var outputs = _mapper.Map<IList<QuoteOutput>>(quotes);
-            return Ok(outputs);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var quote = _quoteService.GetById(id);
-            var output = _mapper.Map<QuoteOutput>(quote);
-            return Ok(output);
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody]QuoteInput input)
-        {
-            try
-            {
-                _quoteService.Update(id, input.Content, input.AuthorName, input.AuthorId);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            _quoteService.Delete(id);
-            return Ok();
         }
     }
 }

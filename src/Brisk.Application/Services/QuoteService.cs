@@ -86,12 +86,5 @@ namespace Brisk.Application
 
             return author;
         }
-
-        private QuestionModel GenerateQuestion(Quote quote)
-        {
-            var question = new Question();
-            question.Quote = quote;
-            question.Choices.Add()
-        }
     }
 }

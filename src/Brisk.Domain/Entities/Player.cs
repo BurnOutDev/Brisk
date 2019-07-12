@@ -12,7 +12,7 @@ namespace Brisk.Domain.Entities
         }
 
         public User User { get; set; }
-        public AnswerMode GameMode { get; set; }
+        public AnswerMode AnswerMode { get; set; }
         public int QuestionCount { get; set; }
 
         public ICollection<Game> PlayedGames { get; set; }

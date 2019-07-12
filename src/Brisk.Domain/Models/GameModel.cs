@@ -9,7 +9,7 @@ namespace Brisk.Domain.Models
     {
         public int GameId { get; set; }
 
-        public AnswerMode GameMode { get; set; }
+        public AnswerMode AnswerMode { get; set; }
         public int QuestionCount { get; set; }
 
         public ICollection<QuestionModel> Questions { get; set; }
