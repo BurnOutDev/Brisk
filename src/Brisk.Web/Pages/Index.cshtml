@@ -9,11 +9,12 @@
         <div class="panel panel-default">
             <div class="text-center">
                 <div class="btn-group special">
-                    <button id="settings-btn" type="button" class="btn btn-secondary btn-lg btn-block rounded-0" title="Settings"><i class="fa fa-list" aria-hidden="true"></i></button>
+                    <button id="back-btn" type="button" class="btn btn-secondary btn-lg btn-block rounded-0" title="Back"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                    <button id="settings-btn" type="button" class="btn btn-secondary btn-lg btn-block rounded-0 d-none" title="Settings"><i class="fa fa-list" aria-hidden="true"></i></button>
                     <button id="new-game-btn" type="button" class="btn btn-secondary btn-lg btn-block rounded-0" title="New Game"><i class="fa fa-gamepad" aria-hidden="true"></i></button>
                 </div>
             </div>
-            <div id="content-container">
+            <div id="content-container" class="page d-none">
                 <div class="p-3">
                     <div class="text-left">
                         <h4>Who Said It?</h4>
@@ -35,16 +36,16 @@
                 </div>
                 <div id="binary-choice-container" class="multiple-choice-element btn-toolbar justify-content-center mx-5 pb-3">
                     <div class="btn-group-vertical special w-100">
-                        <button id="choice-1-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"> -> <span id="choice-1-text">Yes</span></button>
-                        <button id="choice-2-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"> -> <span id="choice-2-text">No</span></button>
-                        <button id="choice-3-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"> -> <span id="choice-3-text">Yes</span></button>
+                        <button id="choice-1-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"><i class="fa fa-chevron-right pr-1" aria-hidden="true"></i><span id="choice-1-text">Yes</span></button>
+                        <button id="choice-2-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"><i class="fa fa-chevron-right pr-1" aria-hidden="true"></i><span id="choice-2-text">No</span></button>
+                        <button id="choice-3-btn" type="button" class="btn btn-secondary btn-block my-1 text-left"><i class="fa fa-chevron-right pr-1" aria-hidden="true"></i><span id="choice-3-text">Yes</span></button>
                     </div>
                 </div>
             </div>
-            <div id="settings-container" class="hidden">
+            <div id="settings-container" class="page d-none">
                 <div class="p-3">
                     <div class="text-left">
-                        <h4>Settings</h4>
+                        <h4>Game Settings</h4>
                     </div>
                     <div class="form-group bd-callout bd-callout-warning">
                         <label>Game Mode</label>
@@ -61,8 +62,69 @@
                         <label for="exampleInputEmail1">Question Count</label>
                         <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter question count">
                     </div>
+                    <div class="text-left">
+                        <h4>Advanced Settings</h4>
+                    </div>
+                    <div class="list-group bd-callout bd-callout-warning">
+                        <a href="#" id="advanced-" class="list-group-item list-group-item-action">
+                            Quote Management <i class="fa fa-chevron-right"></i>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            User Management <i class="fa fa-chevron-right"></i>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            Game Statistics and Reviews <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
+            <div id="settings-quote-management-container" class="page">
+                <div class="p-3">
+                    <div class="text-left pb-1">
+                        <h4>Quote Management</h4>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Search quote...">
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-action">
+                                <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <i class="fa fa-quote-right fa-1x fa-pull-left fa-border"></i>
+                                    Translation is the paradigm, the exemplar of all writing. It is translation that demonstrates most vividly the yearning for transformation that underlies every act involving speech, that supremely human gift.
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        <input type="text" class="form-control" placeholder="Enter author">
+                                    </div>
+                                    <div class="btn-group">
+                                        <a class="btn btn-outline-success" href="#"><i class="fa fa-save fa-lg"></i> Save</a>
+                                        <a class="btn btn-outline-danger" href="#"><i class="fa fa-trash fa-lg"></i> Delete</a>
+                                        <a class="btn btn-outline-info" href="#"><i class="fa fa-times fa-lg"></i> Discard</a>
+                                    </div>
+                                </div>
+</li>
+                            <li class="list-group-item list-group-item-action">Dapibus ac facilisis in</li>
+                            <li class="list-group-item list-group-item-action">Morbi leo risus</li>
+                            <li class="list-group-item list-group-item-action">Porta ac consectetur ac</li>
+                            <li class="list-group-item list-group-item-action">Vestibulum at eros</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
     </div>
 </div>
