@@ -12,6 +12,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { UsersService } from './core/services/users.service';
+import { UsersStore } from './core/stores/users.store';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,16 +25,17 @@ import { UserManagementComponent } from './user-management/user-management.compo
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpClientModule,
     FontAwesomeModule,
     NgbModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [UsersService, UsersStore],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor() {
-    // library.add(faList, faGamepad, faQuoteRight, faBorderAll, faSave, faTrash, faPlus, faUser, faTimes, faUserLock);
     library.add(fas);
   }
 }

@@ -81,7 +81,7 @@ namespace Brisk.Application
             return userOutput;
         }
 
-        public void Update(int id, string firstName, string lastName, string username, string password = null)
+        public void Update(int id, string firstName, string lastName, string username, bool disabled, string password = null)
         {
             var user = _context.Users.Find(id);
 
@@ -98,6 +98,7 @@ namespace Brisk.Application
             user.FirstName = firstName;
             user.LastName = lastName;
             user.Username = username;
+            user.Disabled = disabled;
 
             if (!string.IsNullOrWhiteSpace(password))
             {

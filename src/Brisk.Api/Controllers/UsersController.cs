@@ -17,7 +17,7 @@ using Brisk.Domain.Models;
 
 namespace Brisk.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -100,7 +100,7 @@ namespace Brisk.Api.Controllers
         {
             try
             {
-                _userService.Update(id, input.FirstName, input.LastName, input.Username, input.Password);
+                _userService.Update(id, input.FirstName, input.LastName, input.Username, input.Disabled, input.Password);
                 return Ok();
             }
             catch (Exception ex)

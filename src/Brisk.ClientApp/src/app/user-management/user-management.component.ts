@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../core/models/User.model';
+import { Observable } from 'rxjs';
+import { UsersStore } from '../core/stores/users.store';
+import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-management',
@@ -7,9 +12,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserManagementComponent implements OnInit {
 
-  constructor() { }
+  users$: Observable<User[]>;
 
-  ngOnInit() {
+  constructor(private usersStore: UsersStore) {
+    this.usersStore.init();
   }
 
+  ngOnInit() {
+    this.users$ = this.usersStore.getAll$();
+  }
+
+  createUser(user: User) {
+    this.usersStore.create$(user).subscribe(user => {
+      console.log(`User created successfully.`);
+    });
+  }
+
+  updateUser(user: User) {
+    this.usersStore.update$(user.id, user).subscribe(() => {
+      console.log(`User updated successfully.`);
+    });
+  }
+
+  deleteUser(user: User) {
+    this.usersStore.delete$(1).subscribe(() => {
+      console.log(`User deleted successfully.`);
+    });
+  }
+
+  disableUser(user: User) {
+    user.disabled = !user.disabled;
+    this.usersStore.update$(user.id, user).subscribe(() => {
+      console.log(`User disabled successfully.`);
+    });
+  }
 }

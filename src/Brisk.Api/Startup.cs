@@ -101,10 +101,11 @@ namespace Brisk.Api
             }
 
             app
-                .UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader())
+                .UseCors(x => 
+                    x.WithOrigins("http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    )
                 .AddSwagger()
                 .UseHsts()
                 .UseHttpsRedirection()

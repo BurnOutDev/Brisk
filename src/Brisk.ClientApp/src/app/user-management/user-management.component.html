@@ -7,44 +7,45 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Search user...">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon1"><i
-                            class="fa fa-plus"></i></button>
+                    <button class="btn btn-outline-secondary" (click)="createUser()" type="button">
+                        <fa-icon icon="plus"></fa-icon>
+                    </button>
                 </div>
             </div>
         </div>
         <div class="accordion" id="accordionExample">
-            <ul class="list-group">
+            <ul class="list-group" *ngFor='let user of users$ | async'>
                 <li class="list-group-item list-group-item-action">
-                    <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                        aria-controls="collapseOne">
-                        <i class="fa fa-user fa-1x fa-pull-left fa-border"></i>
-                        <i class="fa fa-times fa-1x fa-pull-right fa-border"></i>
-                        <label>burnoutdev</label>
+                    <div data-toggle="collapse" data-target="#collapseOne" (click)="isCollapsed = !isCollapsed"
+                        aria-expanded="false" aria-controls="collapseOne">
+                        <fa-icon icon="user" class="fa-1x ml-1 mr-2 fa-pull-left"></fa-icon>
+                        <fa-icon icon="times" class="fa-1x fa-pull-right"></fa-icon>
+                        <label class="h5">{{user.username}}</label>
                         <div class="list-group mb-0">
-                            <label>Name: Irakli Murusidze</label>
-                            <label>Score: 25</label>
+                            <label>Name: {{user.firstName}} {{user.lastName}}</label>
                         </div>
                     </div>
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                        data-parent="#accordionExample">
+                    <div id="collapseOne" aria-labelledby="headingOne" [ngbCollapse]="!isCollapsed">
                         <div class="form-group">
-                            <input type="text" class="form-control form-control-sm mb-1" placeholder="Name">
-                            <input type="text" class="form-control form-control-sm mb-1" placeholder="Lastname">
-                            <input type="text" class="form-control form-control-sm mb-1" placeholder="Username">
+                            <input type="text" class="form-control form-control-sm mb-1" placeholder="Name"
+                                [(ngModel)]="user.firstName">
+                            <input type="text" class="form-control form-control-sm mb-1" placeholder="Lastname"
+                                [(ngModel)]="user.lastName">
+                            <input type="text" class="form-control form-control-sm mb-1" placeholder="Username"
+                                [(ngModel)]="user.username">
                         </div>
                         <div class="btn-group btn-toolbar justify-content-between">
-                            <a class="btn btn-sm btn-outline-success" href="#"><i class="fa fa-save fa-lg"></i> Save</a>
-                            <a class="btn btn-sm btn-outline-danger" href="#"><i class="fa fa-trash fa-lg"></i>
+                            <a class="btn btn-sm btn-outline-success" (onclick)="updateUser(user)"><i
+                                    class="fa fa-save fa-lg"></i> Save</a>
+                            <a class="btn btn-sm btn-outline-danger" (click)="deleteUser(user)"><i
+                                    class="fa fa-trash fa-lg"></i>
                                 Delete</a>
-                            <a class="btn btn-sm btn-outline-secondary" href="#"><i class="fa fa-user-lock fa-lg"></i>
-                                Disable</a>
+                            <a class="btn btn-sm btn-outline-secondary" (click)="disableUser(user)"><i
+                                    class="fa fa-user-lock fa-lg"></i>
+                                {{user.disabled ? 'Enable' : 'Disable'}}</a>
                         </div>
                     </div>
                 </li>
-                <li class="list-group-item list-group-item-action">Dapibus ac facilisis in</li>
-                <li class="list-group-item list-group-item-action">Morbi leo risus</li>
-                <li class="list-group-item list-group-item-action">Porta ac consectetur ac</li>
-                <li class="list-group-item list-group-item-action">Vestibulum at eros</li>
             </ul>
         </div>
     </div>

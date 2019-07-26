@@ -10,7 +10,7 @@ namespace Brisk.Application
         IEnumerable<UserOutput> GetAll();
         UserOutput GetById(int id);
         UserOutput Create(string firstName, string lastName, string username, string password);
-        void Update(int id, string firstName, string lastName, string username, string password = null);
+        void Update(int id, string firstName, string lastName, string username, bool disabled, string password = null);
         void Delete(int id);
         int UserId { get; set; }
     }
