@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../core/models/User.model';
 import { Observable } from 'rxjs';
 import { UsersStore } from '../core/stores/users.store';
-import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-management',
@@ -14,7 +14,9 @@ export class UserManagementComponent implements OnInit {
 
   users$: Observable<User[]>;
 
-  constructor(private usersStore: UsersStore) {
+  constructor(
+    private usersStore: UsersStore,
+    private toastrService: ToastrService) {
     this.usersStore.init();
   }
 
@@ -22,28 +24,46 @@ export class UserManagementComponent implements OnInit {
     this.users$ = this.usersStore.getAll$();
   }
 
+  success() {
+    this.toastrService.success("Success");
+  }
+
+  error() {
+    this.toastrService.error("Error");
+  }
+
   createUser(user: User) {
-    this.usersStore.create$(user).subscribe(user => {
-      console.log(`User created successfully.`);
-    });
+
+
+    this.users$.pipe(
+      map(data =>
+        data.push({
+          id: 0,
+          username: '',
+          firstName: '',
+          lastName: '',
+          role: '',
+          disabled: false
+        })));
   }
 
   updateUser(user: User) {
-    this.usersStore.update$(user.id, user).subscribe(() => {
-      console.log(`User updated successfully.`);
+    console.log("update pressed");
+    this.usersStore.update$(user.id, user).subscribe((u) => {
+      this.toastrService.success(`${u.username} updated`);
+    }, (error) => {
+      this.toastrService.error(error.message);
     });
   }
 
   deleteUser(user: User) {
-    this.usersStore.delete$(1).subscribe(() => {
-      console.log(`User deleted successfully.`);
-    });
+    this.usersStore.delete$(1).subscribe(this.success, this.error);
   }
 
   disableUser(user: User) {
     user.disabled = !user.disabled;
     this.usersStore.update$(user.id, user).subscribe(() => {
-      console.log(`User disabled successfully.`);
+      this.toastrService.success('User disabled successfully.');
     });
   }
 }

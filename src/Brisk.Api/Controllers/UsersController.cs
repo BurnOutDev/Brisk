@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using Brisk.Domain;
 using Brisk.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -17,7 +18,7 @@ using Brisk.Domain.Models;
 
 namespace Brisk.Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -43,7 +44,7 @@ namespace Brisk.Api.Controllers
             var user = _userService.Authenticate(input.Username, input.Password);
 
             if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return Unauthorized(new { message = "Username or password is incorrect" });
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -101,7 +102,15 @@ namespace Brisk.Api.Controllers
             try
             {
                 _userService.Update(id, input.FirstName, input.LastName, input.Username, input.Disabled, input.Password);
-                return Ok();
+                return Ok(new UserOutput
+                {
+                    Id = id,
+                    FirstName = input.FirstName,
+                    LastName = input.LastName,
+                    Role = "Admin",
+                    Username = input.Username,
+                    Disabled = input.Disabled
+                });
             }
             catch (Exception ex)
             {

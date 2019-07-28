@@ -8,20 +8,27 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-// import { faList, faQuoteRight, faBorderAll, faSave, faTrash, faPlus, faUser, faTimes, faUserLock, faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
+
 import { UserManagementComponent } from './user-management/user-management.component';
 import { UsersService } from './core/services/users.service';
 import { UsersStore } from './core/stores/users.store';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthenticateComponent } from './authenticate/authenticate.component';
+
+import { AuthenticationInterceptor } from './core/interceptors/authentication.interceptor'
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    AuthenticateComponent
   ],
   imports: [
     BrowserModule,
@@ -29,9 +36,17 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FontAwesomeModule,
     NgbModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [UsersService, UsersStore],
+  providers: [
+    UsersService,
+    UsersStore,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
