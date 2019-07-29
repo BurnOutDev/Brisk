@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Quote } from '../core/models/quote.model';
 import { Author } from '../core/models/author.model';
@@ -14,28 +14,26 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class QuoteEditComponent implements OnInit {
 
-  public state$: Observable<Quote>;
+  public quote$: BehaviorSubject<Quote>;
 
-  public authors$: Observable<Author[]>;
+  public authors$: BehaviorSubject<Author[]>;
 
   constructor(
     public quotesService: QuotesService,
     public toastrService: ToastrService,
     public activatedRoute: ActivatedRoute) {
-    this.authors$ = quotesService.getAuthors$();
+      this.quote$ = new BehaviorSubject<Quote>(undefined);
+      this.authors$ = new BehaviorSubject<Author[]>(undefined);
+
+      this.activatedRoute.params.subscribe(params => {
+        if(params['id'])
+        quotesService.getById$(params['id']).subscribe(quote => this.quote$.next(quote));
+      });
+
+    quotesService.getAuthors$().subscribe(author => this.authors$.next(author));
   }
 
-  ngOnInit() {
-    this.state$ = this.activatedRoute.paramMap
-      .pipe(map(() => {
-        console.log(window.history.state);
-        return window.history.state as Quote;
-      }))
-
-    // this.state$.pipe(map(state => {
-    //   this.quote = state;
-    // }));
-  }
+  ngOnInit() { }
 
   update(quote: Quote) {
     this.quotesService.put$(quote.id, quote).subscribe(() =>

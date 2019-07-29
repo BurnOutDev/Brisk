@@ -20,6 +20,8 @@ export class QuotesService {
 
   get$ = (): Observable<Quote[]> => this.http.get<Quote[]>(this.url);
 
+  getById$ = (id: number): Observable<Quote> => this.http.get<Quote>(`${this.url}/${id}`);
+
   getAuthors$ = (): Observable<Author[]> => this.http.get<Author[]>(this.url + '/authors');
 
   getPaged$ = (page: number): Observable<Quote[]> => this.http.get<Quote[]>(this.url + this.withPage(page));

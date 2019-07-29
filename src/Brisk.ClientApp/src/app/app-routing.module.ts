@@ -10,7 +10,7 @@ import { QuoteEditComponent } from './quote-edit/quote-edit.component';
 const routes: Routes = [
   { path: 'authenticate', component: AuthenticateComponent },
   { path: 'quote-management', component: QuoteManagementComponent, canActivate: [AuthenticationGuard] },
-  { path: 'quote-edit', component: QuoteEditComponent, canActivate: [AuthenticationGuard] },
+  { path: 'quote-edit/:id', component: QuoteEditComponent, canActivate: [AuthenticationGuard] },
   { path: 'user-management', component: UserManagementComponent, canActivate: [AuthenticationGuard] }
 ];
 

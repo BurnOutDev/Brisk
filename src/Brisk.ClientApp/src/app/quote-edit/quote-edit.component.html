@@ -1,6 +1,6 @@
 <div id="settings-user-management-container" class="page">
     <ng-template #loading>Loading User Data...</ng-template>
-    <div class="p-3" *ngIf="state$ | async as quote; else loading">
+    <div class="p-3" *ngIf="quote$ | async as quote; else loading">
         <div class="text-left pb-1">
             <h4>Quote Edit</h4>
         </div>

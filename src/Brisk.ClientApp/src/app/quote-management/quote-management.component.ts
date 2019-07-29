@@ -73,6 +73,6 @@ export class QuoteManagementComponent implements OnInit {
   }
 
   navigateToEdit(quote: Quote) {
-    this.router.navigateByUrl('quote-edit', { state: quote });
+    this.router.navigateByUrl(`quote-edit/${quote.id}`);
   }
 }
