@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="accordion" id="accordionExample">
-            <ul class="list-group" *ngFor='let quote of quotes$ | async'>
+            <ul class="list-group" *ngFor='let quote of quotes$ | async' (scroll)="onScroll($event)">
                 <li class="list-group-item list-group-item-action">
                     <div (click)="collapsed[quote.id] = !collapsed[quote.id]">
                         <fa-icon icon="quote-left" class="fa-1x ml-1 mr-2 fa-pull-left"></fa-icon>
@@ -22,13 +22,11 @@
                     </div>
                     <div [ngbCollapse]="!collapsed[quote.id]">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Author</label>
-                            <input type="text" [(ngModel)]="quote.authorName" class="form-control"
-                                placeholder="Enter author">
+                            <label class="font-italic">{{quote.author}}</label>
                         </div>
                         <div class="btn-group btn-toolbar justify-content-between">
-                            <a class="btn btn-sm btn-outline-success" (click)="updateQuote(quote)"><i
-                                    class="fa fa-save fa-lg"></i> Save</a>
+                            <a class="btn btn-sm btn-outline-info" (click)="navigateToEdit(quote)"><i
+                                    class="fa fa-edit fa-lg"></i> Edit</a>
                             <a class="btn btn-sm btn-outline-danger" (click)="deleteQuote(quote)"><i
                                     class="fa fa-trash fa-lg"></i>
                                 Delete</a>

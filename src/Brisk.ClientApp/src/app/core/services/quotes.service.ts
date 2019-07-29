@@ -3,6 +3,7 @@ import { Quote } from '../models/quote.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Author } from '../models/author.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,8 @@ export class QuotesService {
   }
 
   get$ = (): Observable<Quote[]> => this.http.get<Quote[]>(this.url);
+
+  getAuthors$ = (): Observable<Author[]> => this.http.get<Author[]>(this.url + '/authors');
 
   getPaged$ = (page: number): Observable<Quote[]> => this.http.get<Quote[]>(this.url + this.withPage(page));
 

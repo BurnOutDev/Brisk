@@ -10,5 +10,6 @@ namespace Brisk.Application
         IEnumerable<QuoteOutput> GetAll();
         QuoteOutput GetById(int id);
         void Update(int id, string content, string authorName, int? authorId);
+        ICollection<AuthorOutput> GetAuthors();
     }
 }

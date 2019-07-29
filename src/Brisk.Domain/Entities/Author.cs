@@ -11,6 +11,6 @@ namespace Brisk.Domain.Entities
         }
 
         public string Name { get; set; }
-        public ICollection<Quote> Quotes { get; set; }
+        public virtual ICollection<Quote> Quotes { get; set; }
     }
 }

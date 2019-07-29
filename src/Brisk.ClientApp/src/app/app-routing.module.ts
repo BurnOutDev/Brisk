@@ -4,11 +4,13 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { AuthenticationGuard } from './core/guards/authentication.guard';
 import { QuoteManagementComponent } from './quote-management/quote-management.component';
+import { QuoteEditComponent } from './quote-edit/quote-edit.component';
 
 
 const routes: Routes = [
   { path: 'authenticate', component: AuthenticateComponent },
   { path: 'quote-management', component: QuoteManagementComponent, canActivate: [AuthenticationGuard] },
+  { path: 'quote-edit', component: QuoteEditComponent, canActivate: [AuthenticationGuard] },
   { path: 'user-management', component: UserManagementComponent, canActivate: [AuthenticationGuard] }
 ];
 

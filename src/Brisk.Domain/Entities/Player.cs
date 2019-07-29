@@ -11,10 +11,10 @@ namespace Brisk.Domain.Entities
             PlayedGames = new HashSet<Game>();
         }
 
-        public User User { get; set; }
-        public AnswerMode AnswerMode { get; set; }
-        public int QuestionCount { get; set; }
-
-        public ICollection<Game> PlayedGames { get; set; }
+        public virtual User User { get; set; }
+        public virtual AnswerMode AnswerMode { get; set; }
+        public virtual int QuestionCount { get; set; }
+ 
+        public virtual ICollection<Game> PlayedGames { get; set; }
     }
 }

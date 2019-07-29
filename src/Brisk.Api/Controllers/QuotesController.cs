@@ -45,16 +45,23 @@ namespace Brisk.Api.Controllers
         [HttpPost]
         public IActionResult Create([FromBody]QuoteInput quote)
         {
-            var output = _quoteService.Create(quote.Content, quote.AuthorName, quote.AuthorId);
+            var output = _quoteService.Create(quote.Content, quote.Author, quote.AuthorId);
             return Ok(output);
         }
 
         [HttpGet]
         public IActionResult GetAll(int page = 1)
         {
-            var pageSize = 20;
-            var quotes = _quoteService.GetAll().Skip(page-- * pageSize).Take(pageSize);
-            var outputs = _mapper.Map<IList<QuoteOutput>>(quotes);
+            //var pageSize = 20;
+            //var quotes = _quoteService.GetAll().Skip(page-- * pageSize).Take(pageSize);
+            var outputs = _quoteService.GetAll().Take(500);
+            return Ok(outputs);
+        }
+
+        [HttpGet("authors")]
+        public IActionResult GetAllAuthors()
+        {
+            var outputs = _quoteService.GetAuthors();
             return Ok(outputs);
         }
 
@@ -71,7 +78,7 @@ namespace Brisk.Api.Controllers
         {
             try
             {
-                _quoteService.Update(id, input.Content, input.AuthorName, input.AuthorId);
+                _quoteService.Update(id, input.Content, input.Author, input.AuthorId);
                 return Ok();
             }
             catch (Exception ex)

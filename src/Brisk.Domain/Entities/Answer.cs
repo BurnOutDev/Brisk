@@ -5,9 +5,9 @@ namespace Brisk.Domain.Entities
 {
     public class Answer : BaseEntity
     {
-        public Question Question { get; set; }
-        public Choice Choice { get; set; }
-        public Game Game { get; set; }
+        public virtual Question Question { get; set; }
+        public virtual Choice Choice { get; set; }
+        public virtual Game Game { get; set; }
 
         public BinaryChoice BinaryAnswer { get; set; }
         public AnswerMode AnswerMode { get; set; }

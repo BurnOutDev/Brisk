@@ -15,11 +15,13 @@ export class QuotesStore extends Store<Quote[]> {
     }
 
     init = (): void => {
-        if (this.getAll()) { return; }
+        // if (this.getAll()) { return; }
 
-        this.quotesService.get$().pipe(
-            tap(this.store)
-        ).subscribe();
+        // this.quotesService.get$().pipe(
+        //     tap(this.store)
+        // ).subscribe();
+
+        this.getAllPaged(1);
     }
 
     create$ = (quote: Quote): Observable<Quote> => this.quotesService
@@ -41,6 +43,8 @@ export class QuotesStore extends Store<Quote[]> {
         )
 
     getAllPaged(page: number) {
+        this.getAll();
+
         return this.quotesService.getPaged$(page).pipe(
             tap(this.store)
         ).subscribe();

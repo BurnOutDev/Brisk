@@ -11,12 +11,12 @@ namespace Brisk.Domain.Entities
             Choices = new HashSet<Choice>();
         }
 
-        public Quote Quote { get; set; }
-        public Game Game { get; set; }
+        public virtual Quote Quote { get; set; }
+        public virtual Game Game { get; set; }
 
-        public AnswerMode AnswerMode { get; set; }
-        public QuestionStatus Status { get; set; }
+        public virtual AnswerMode AnswerMode { get; set; }
+        public virtual QuestionStatus Status { get; set; }
 
-        public ICollection<Choice> Choices { get; set; }
+        public virtual ICollection<Choice> Choices { get; set; }
     }
 }

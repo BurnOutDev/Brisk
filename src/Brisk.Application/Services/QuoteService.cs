@@ -2,6 +2,7 @@
 using Brisk.Domain.Entities;
 using Brisk.Domain.Models;
 using Brisk.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Brisk.Application
 
         public IEnumerable<QuoteOutput> GetAll()
         {
-            var quotes = _mapper.Map<IEnumerable<QuoteOutput>>(_context.Quotes);
+            var quotes = _mapper.Map<IEnumerable<QuoteOutput>>(_context.Quotes.Include(p => p.Author));
 
             return quotes;
         }
@@ -70,6 +71,15 @@ namespace Brisk.Application
                 _context.Quotes.Remove(quote);
                 _context.SaveChanges();
             }
+        }
+
+        public ICollection<AuthorOutput> GetAuthors()
+        {
+            return _context.Authors.Select(author => new AuthorOutput
+            {
+                Author = author.Name,
+                AuthorId = author.Id
+            }).ToHashSet();
         }
 
         private Author FindOrCreateAuthor(int? authorId, string authorName)

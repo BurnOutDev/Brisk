@@ -22,9 +22,11 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { QuoteManagementComponent } from './quote-management/quote-management.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AuthenticationInterceptor } from './core/interceptors/authentication.interceptor'
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { QuoteEditComponent } from './quote-edit/quote-edit.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     NavigationComponent,
     UserManagementComponent,
     AuthenticateComponent,
-    QuoteManagementComponent
+    QuoteManagementComponent,
+    QuoteEditComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
+    NgSelectModule,
     ToastrModule.forRoot(),
     AppRoutingModule
   ],

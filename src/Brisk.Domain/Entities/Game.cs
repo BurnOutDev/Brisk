@@ -13,14 +13,14 @@ namespace Brisk.Domain.Entities
             Questions = new HashSet<Question>();
         }
 
-        public Player Player { get; set; }
+        public virtual Player Player { get; set; }
 
-        public AnswerMode AnswerMode { get; set; }
-        public int QuestionCount { get; set; }
+        public virtual AnswerMode AnswerMode { get; set; }
+        public virtual int QuestionCount { get; set; }
 
-        public DateTime FinishedDate { get; set; }
+        public virtual DateTime FinishedDate { get; set; }
 
-        public ICollection<Answer> Answers { get; set; }
-        public ICollection<Question> Questions { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
     }
 }

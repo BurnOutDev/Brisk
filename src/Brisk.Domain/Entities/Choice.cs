@@ -7,7 +7,7 @@ namespace Brisk.Domain.Entities
 {
     public class Choice : BaseEntity
     {
-        public Author Author { get; set; }
-        public Question Question { get; set; }
+        public virtual Author Author { get; set; }
+        public virtual Question Question { get; set; }
     }
 }
