@@ -2,6 +2,7 @@
 using Brisk.Domain.Entities;
 using Brisk.Domain.Models;
 using Brisk.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,9 +42,20 @@ namespace Brisk.Application
             return token;
         }
 
-        public IEnumerable<UserOutput> GetAll()
+        public IEnumerable<UserOutput> GetAll(int skip, int take, string filter)
         {
-            var users = _mapper.Map<IList<UserOutput>>(_context.Users);
+            var users = _mapper.Map<IEnumerable<UserOutput>>(_context.Users);
+
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                filter = filter.ToLower();
+                users = users.Where(user => user.Username.ToLower().Contains(filter) 
+                                            || user.FirstName.ToLower().Contains(filter)
+                                            || user.LastName.ToLower().Contains(filter));
+            }
+
+            users = users.Skip(skip).Take(take);
+
             return users;
         }
 

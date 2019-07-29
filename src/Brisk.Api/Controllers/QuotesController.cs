@@ -50,11 +50,9 @@ namespace Brisk.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(int page = 1)
+        public IActionResult GetAll(int skip, int take, string filter)
         {
-            //var pageSize = 20;
-            //var quotes = _quoteService.GetAll().Skip(page-- * pageSize).Take(pageSize);
-            var outputs = _quoteService.GetAll().Take(500);
+            var outputs = _quoteService.GetAll(skip, take, filter);
             return Ok(outputs);
         }
 

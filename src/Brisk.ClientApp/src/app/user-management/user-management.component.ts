@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs/operators';
 import { UsersService } from '../core/services/users.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-management',
@@ -14,16 +15,24 @@ export class UserManagementComponent implements OnInit {
 
   users$: BehaviorSubject<User[]>;
 
+  filter: string;
+  usersCount: number;
+  
   collapsed: boolean[] = new Array(2000);
 
   constructor(
     private usersService: UsersService,
     private toastrService: ToastrService) {
       this.users$ = new BehaviorSubject<User[]>(undefined);
+      this.usersCount = 0;
   }
 
   ngOnInit() {
-    this.usersService.get$().subscribe(user => this.users$.next(user));
+    this.usersService.getPaginatedAndFiltered$(0).subscribe(
+      (user) => {
+        this.users$.next(user);
+      }
+    );
   }
 
   success() {
@@ -67,5 +76,21 @@ export class UserManagementComponent implements OnInit {
     this.usersService.put$(user.id, user).subscribe(() => {
       this.toastrService.success('User disabled successfully.');
     });
+  }
+
+  onFilterChange() {
+    this.usersService.getPaginatedAndFiltered$(0, this.filter).subscribe(
+      (quote) => {
+        this.users$.next(quote);
+      }
+    );
+  }
+
+  loadMore() {
+    this.usersService.getPaginatedAndFiltered$(this.usersCount, this.filter).subscribe(
+      (quote) => {
+        this.users$.next(quote);
+        this.usersCount *= environment.defaultTake;
+      });
   }
 }

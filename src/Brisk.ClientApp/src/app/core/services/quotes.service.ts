@@ -24,7 +24,7 @@ export class QuotesService {
 
   getAuthors$ = (): Observable<Author[]> => this.http.get<Author[]>(this.url + '/authors');
 
-  getPaged$ = (page: number): Observable<Quote[]> => this.http.get<Quote[]>(this.url + this.withPage(page));
+  getPaginatedAndFiltered$ = (skip: number = 1, filter?: string): Observable<Quote[]> => this.http.get<Quote[]>(this.url + this.withPageAndFilter(skip, filter));
 
   post$ = (quote: Quote): Observable<Quote> => this.http.post<Quote>(this.url, quote);
 
@@ -32,7 +32,10 @@ export class QuotesService {
 
   delete$ = (id: number): Observable<Quote> => this.http.delete<Quote>(`${this.url}/${id}`);
 
-  withPage(page: number): string {
-    return `/?page=${page}`;
+  withPageAndFilter(skip: number, filter?: string): string {
+    var url = `/?skip=${skip}&take=${environment.defaultTake}`;
+    if (filter)
+      url += `&filter=${filter}`;
+    return url;
   }
 }

@@ -5,6 +5,8 @@ import { Author } from '../core/models/author.model';
 import { QuotesService } from '../core/services/quotes.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-quote-management',
@@ -16,6 +18,10 @@ export class QuoteManagementComponent implements OnInit {
   quotes$: BehaviorSubject<Quote[]>;
   authors$: BehaviorSubject<Author[]>;
 
+
+  filter: string;
+  quotesCount: number;
+
   collapsed: boolean[] = new Array(2000);
 
   constructor(
@@ -25,10 +31,11 @@ export class QuoteManagementComponent implements OnInit {
 
       this.quotes$ = new BehaviorSubject<Quote[]>(undefined);
       this.authors$ = new BehaviorSubject<Author[]>(undefined);
+      this.quotesCount = 0;
   }
 
   ngOnInit() {
-    this.quotesService.get$().subscribe(
+    this.quotesService.getPaginatedAndFiltered$(0).subscribe(
       (quote) => {
         this.quotes$.next(quote);
       }
@@ -74,5 +81,21 @@ export class QuoteManagementComponent implements OnInit {
 
   navigateToEdit(quote: Quote) {
     this.router.navigateByUrl(`quote-edit/${quote.id}`);
+  }
+
+  onFilterChange() {
+    this.quotesService.getPaginatedAndFiltered$(0, this.filter).subscribe(
+      (quote) => {
+        this.quotes$.next(quote);
+      }
+    );
+  }
+
+  loadMore() {
+    this.quotesService.getPaginatedAndFiltered$(this.quotesCount, this.filter).subscribe(
+      (quote) => {
+        this.quotes$.next(quote);
+        this.quotesCount *= environment.defaultTake;
+      });
   }
 }

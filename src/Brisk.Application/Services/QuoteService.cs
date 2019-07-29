@@ -20,16 +20,27 @@ namespace Brisk.Application
             _mapper = mapper;
         }
 
-        public IEnumerable<QuoteOutput> GetAll()
+        public IEnumerable<QuoteOutput> GetAll(int skip, int take, string filter)
         {
-            var quotes = _mapper.Map<IEnumerable<QuoteOutput>>(_context.Quotes.Include(p => p.Author));
+            var skipped = _context.Quotes.Include(p => p.Author);
+
+            var quotes = _mapper.Map<IEnumerable<QuoteOutput>>(skipped);
+
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                filter = filter.ToLower();
+                quotes = quotes.Where(quote => quote.Author.ToLower().Contains(filter) || quote.Content.ToLower().Contains(filter));
+            }
+
+            quotes = quotes.Skip(skip).Take(take);
 
             return quotes;
         }
 
         public QuoteOutput GetById(int id)
         {
-            var quote = _mapper.Map<QuoteOutput>(_context.Quotes.Find(id));
+            var quoteFound = _context.Quotes.Where(qoute => qoute.Id == id).Include(property => property.Author).FirstOrDefault();
+            var quote = _mapper.Map<QuoteOutput>(quoteFound);
             return quote;
         }
 

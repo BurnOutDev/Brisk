@@ -81,11 +81,10 @@ namespace Brisk.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(int skip, int take, string filter)
         {
-            var users = _userService.GetAll();
-            var userDtos = _mapper.Map<IList<UserOutput>>(users);
-            return Ok(userDtos);
+            var outputs = _userService.GetAll(skip, take, filter);
+            return Ok(outputs);
         }
 
         [HttpGet("{id}")]

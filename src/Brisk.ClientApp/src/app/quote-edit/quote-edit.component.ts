@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { Quote } from '../core/models/quote.model';
 import { Author } from '../core/models/author.model';
 import { QuotesService } from '../core/services/quotes.service';
@@ -21,7 +20,8 @@ export class QuoteEditComponent implements OnInit {
   constructor(
     public quotesService: QuotesService,
     public toastrService: ToastrService,
-    public activatedRoute: ActivatedRoute) {
+    public activatedRoute: ActivatedRoute,
+    public router: Router) {
       this.quote$ = new BehaviorSubject<Quote>(undefined);
       this.authors$ = new BehaviorSubject<Author[]>(undefined);
 
@@ -39,6 +39,14 @@ export class QuoteEditComponent implements OnInit {
     this.quotesService.put$(quote.id, quote).subscribe(() =>
       this.toastrService.success('quote updated'), (error) =>
         this.toastrService.error(error.message));
+  }
+
+  delete(quote: Quote) {
+    this.quotesService.delete$(quote.id).subscribe(() => {
+      this.toastrService.success('quote deleted');
+      this.router.navigateByUrl('quote-management');
+  }, (error) =>
+      this.toastrService.error(error.message));
   }
 
 }
