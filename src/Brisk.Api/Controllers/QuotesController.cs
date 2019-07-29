@@ -50,11 +50,10 @@ namespace Brisk.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(int page = 1)
         {
-            _gameService.StartNewGame(_userService.UserId);
-
-            var quotes = _quoteService.GetAll();
+            var pageSize = 20;
+            var quotes = _quoteService.GetAll().Skip(page-- * pageSize).Take(pageSize);
             var outputs = _mapper.Map<IList<QuoteOutput>>(quotes);
             return Ok(outputs);
         }

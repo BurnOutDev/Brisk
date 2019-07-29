@@ -16,8 +16,7 @@
         <div class="accordion" id="accordionExample">
             <ul class="list-group" *ngFor='let user of users$ | async'>
                 <li class="list-group-item list-group-item-action">
-                    <div data-toggle="collapse" data-target="#collapseOne" (click)="isCollapsed = !isCollapsed"
-                        aria-expanded="false" aria-controls="collapseOne">
+                    <div (click)="collapsed[user.id] = !collapsed[user.id]">
                         <fa-icon icon="user" class="fa-1x ml-1 mr-2 fa-pull-left"></fa-icon>
                         <fa-icon icon="times" class="fa-1x fa-pull-right"></fa-icon>
                         <label class="h5">{{user.username}}</label>
@@ -25,7 +24,7 @@
                             <label>Name: {{user.firstName}} {{user.lastName}}</label>
                         </div>
                     </div>
-                    <div id="collapseOne" aria-labelledby="headingOne" [ngbCollapse]="!isCollapsed">
+                    <div [ngbCollapse]="!collapsed[user.id]">
                         <div class="form-group">
                             <input type="text" class="form-control form-control-sm mb-1" placeholder="Name"
                                 [(ngModel)]="user.firstName">

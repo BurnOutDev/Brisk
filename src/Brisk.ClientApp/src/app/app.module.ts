@@ -11,14 +11,17 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
-import { UserManagementComponent } from './user-management/user-management.component';
 import { UsersService } from './core/services/users.service';
 import { UsersStore } from './core/stores/users.store';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+import { UserManagementComponent } from './user-management/user-management.component';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
+import { QuoteManagementComponent } from './quote-management/quote-management.component';
 
 import { AuthenticationInterceptor } from './core/interceptors/authentication.interceptor'
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
@@ -28,7 +31,8 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     AppComponent,
     NavigationComponent,
     UserManagementComponent,
-    AuthenticateComponent
+    AuthenticateComponent,
+    QuoteManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     NgbModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    InfiniteScrollModule,
     ToastrModule.forRoot(),
     AppRoutingModule
   ],

@@ -14,6 +14,8 @@ export class UserManagementComponent implements OnInit {
 
   users$: Observable<User[]>;
 
+  collapsed: boolean[] = new Array(2000);
+
   constructor(
     private usersStore: UsersStore,
     private toastrService: ToastrService) {
