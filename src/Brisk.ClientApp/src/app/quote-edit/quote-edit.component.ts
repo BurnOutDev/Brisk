@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { QuotesStore } from '../core/stores/quotes.store';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,13 +15,11 @@ import { ToastrService } from 'ngx-toastr';
 export class QuoteEditComponent implements OnInit {
 
   public state$: Observable<Quote>;
-  // public quote: Quote;
 
   public authors$: Observable<Author[]>;
 
   constructor(
     public quotesService: QuotesService,
-    public quotesStore: QuotesStore,
     public toastrService: ToastrService,
     public activatedRoute: ActivatedRoute) {
     this.authors$ = quotesService.getAuthors$();
@@ -41,7 +38,7 @@ export class QuoteEditComponent implements OnInit {
   }
 
   update(quote: Quote) {
-    this.quotesStore.update$(quote.id, quote).subscribe(() =>
+    this.quotesService.put$(quote.id, quote).subscribe(() =>
       this.toastrService.success('quote updated'), (error) =>
         this.toastrService.error(error.message));
   }

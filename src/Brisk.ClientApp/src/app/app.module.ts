@@ -12,7 +12,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 import { UsersService } from './core/services/users.service';
-import { UsersStore } from './core/stores/users.store';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -52,7 +51,6 @@ import { QuoteEditComponent } from './quote-edit/quote-edit.component';
   ],
   providers: [
     UsersService,
-    UsersStore,
     { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],

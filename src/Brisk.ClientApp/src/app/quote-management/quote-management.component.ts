@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Quote } from '../core/models/quote.model';
 import { ToastrService } from 'ngx-toastr';
-import { QuotesStore } from '../core/stores/quotes.store';
-import { map } from 'rxjs/operators';
 import { Author } from '../core/models/author.model';
 import { QuotesService } from '../core/services/quotes.service';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-quote-management',
@@ -16,27 +13,36 @@ import { environment } from 'src/environments/environment';
 })
 export class QuoteManagementComponent implements OnInit {
 
-  quotes$: Observable<Quote[]>;
-  authors$: Observable<Author[]>;
+  quotes$: BehaviorSubject<Quote[]>;
+  authors$: BehaviorSubject<Author[]>;
 
   collapsed: boolean[] = new Array(2000);
 
-  constructor(private quotesStore: QuotesStore,
+  constructor(
     private router: Router,
     private quotesService: QuotesService,
     private toastrService: ToastrService) {
-    this.quotesStore.init();
+
+      this.quotes$ = new BehaviorSubject<Quote[]>(undefined);
+      this.authors$ = new BehaviorSubject<Author[]>(undefined);
   }
 
   ngOnInit() {
-    this.quotes$ = this.quotesStore.getAll$();
-    this.authors$ = this.quotesService.getAuthors$();
+    this.quotesService.get$().subscribe(
+      (quote) => {
+        this.quotes$.next(quote);
+      }
+    );
+
+    this.quotesService.getAuthors$().subscribe(
+      (author) => {
+        this.authors$.next(author);
+      }
+    );
   }
 
   onScroll(event: Event) {
     this.toastrService.info("scrolled");
-    // this.quotesStore.getAllPaged(2);
-    // this.quotes$ = this.quotesStore.getAll$();
   }
 
   success() {
@@ -55,7 +61,7 @@ export class QuoteManagementComponent implements OnInit {
 
   updateQuote(quote: Quote) {
     console.log("update pressed");
-    this.quotesStore.update$(quote.id, quote).subscribe((u) => {
+    this.quotesService.put$(quote.id, quote).subscribe((u) => {
       this.toastrService.success(`Quote updated`);
     }, (error) => {
       this.toastrService.error(error.message);
@@ -63,7 +69,7 @@ export class QuoteManagementComponent implements OnInit {
   }
 
   deleteQuote(quote: Quote) {
-    this.quotesStore.delete$(1).subscribe(this.success, this.error);
+    this.quotesService.delete$(quote.id).subscribe(this.success, this.error);
   }
 
   navigateToEdit(quote: Quote) {

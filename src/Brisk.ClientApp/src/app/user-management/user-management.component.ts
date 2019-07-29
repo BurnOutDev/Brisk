@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../core/models/User.model';
-import { Observable } from 'rxjs';
-import { UsersStore } from '../core/stores/users.store';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs/operators';
+import { UsersService } from '../core/services/users.service';
 
 @Component({
   selector: 'app-user-management',
@@ -12,18 +12,18 @@ import { map } from 'rxjs/operators';
 })
 export class UserManagementComponent implements OnInit {
 
-  users$: Observable<User[]>;
+  users$: BehaviorSubject<User[]>;
 
   collapsed: boolean[] = new Array(2000);
 
   constructor(
-    private usersStore: UsersStore,
+    private usersService: UsersService,
     private toastrService: ToastrService) {
-    this.usersStore.init();
+      this.users$ = new BehaviorSubject<User[]>(undefined);
   }
 
   ngOnInit() {
-    this.users$ = this.usersStore.getAll$();
+    this.usersService.get$().subscribe(user => this.users$.next(user));
   }
 
   success() {
@@ -51,7 +51,7 @@ export class UserManagementComponent implements OnInit {
 
   updateUser(user: User) {
     console.log("update pressed");
-    this.usersStore.update$(user.id, user).subscribe((u) => {
+    this.usersService.put$(user.id, user).subscribe((u) => {
       this.toastrService.success(`${u.username} updated`);
     }, (error) => {
       this.toastrService.error(error.message);
@@ -59,12 +59,12 @@ export class UserManagementComponent implements OnInit {
   }
 
   deleteUser(user: User) {
-    this.usersStore.delete$(1).subscribe(this.success, this.error);
+    this.usersService.delete$(user.id).subscribe(this.success, this.error);
   }
 
   disableUser(user: User) {
     user.disabled = !user.disabled;
-    this.usersStore.update$(user.id, user).subscribe(() => {
+    this.usersService.put$(user.id, user).subscribe(() => {
       this.toastrService.success('User disabled successfully.');
     });
   }
