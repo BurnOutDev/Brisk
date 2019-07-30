@@ -8,7 +8,7 @@ namespace Brisk.Domain.Models.Output
 {
     class StartNewGameOutput
     {
-        public Player Player { get; set; }
+        public User User { get; set; }
 
         public AnswerMode AnswerMode { get; set; }
         public int QuestionCount { get; set; }

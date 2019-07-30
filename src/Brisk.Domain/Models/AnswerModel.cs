@@ -9,6 +9,12 @@ namespace Brisk.Domain.Models
     {
         public int GameId { get; set; }
         public int ChoiceId { get; set; }
-        public BinaryChoice BinaryChoice { get; set; }
+        public BinaryChoice? BinaryChoice { get; set; }
+    }
+
+    public class SettingsModel
+    {
+        public AnswerMode AnswerMode { get; set; }
+        public int QuestionCount { get; set; }
     }
 }

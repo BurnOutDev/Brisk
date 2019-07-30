@@ -22,15 +22,16 @@ export class UsersService {
   post$ = (user: User): Observable<User> => this.http.post<User>(this.url, user);
 
   getPaginatedAndFiltered$ = (skip: number = 0, filter?: string): Observable<User[]> => this.http.get<User[]>(this.url + this.withPageAndFilter(skip, filter));
-  
+
   put$ = (id: number, user: User): Observable<User> => this.http.put<User>(`${this.url}/${id}`, user);
 
   delete$ = (id: number): Observable<User> => this.http.delete<User>(`${this.url}/${id}`);
 
   withPageAndFilter(skip: number, filter?: string): string {
-    var url = `/?skip=${skip}&take=${environment.defaultTake}`;
-    if (filter)
+    let url = `/?skip=${skip}&take=${environment.defaultTake}`;
+    if (filter) {
       url += `&filter=${filter}`;
+    }
     return url;
   }
 }

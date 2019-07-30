@@ -23,20 +23,15 @@ namespace Brisk.Api.Controllers
     [Route("api/[controller]")]
     public class GamesController : ControllerBase
     {
-        private IUserService _userService;
         private IGameService _gameService;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
         public GamesController(
-            IUserService userService,
             IGameService gameService,
-            IMapper mapper,
-            IOptions<AppSettings> appSettings)
+            IMapper mapper)
         {
-            _userService = userService;
             _mapper = mapper;
-            _appSettings = appSettings.Value;
             _gameService = gameService;
         }
 
@@ -44,7 +39,7 @@ namespace Brisk.Api.Controllers
         [Route("start-new-game")]
         public IActionResult StartNewGame()
         {
-            var output = _gameService.StartNewGame(_userService.UserId);
+            var output = _gameService.StartNewGame();
 
             return Ok(output);
         }
@@ -53,9 +48,27 @@ namespace Brisk.Api.Controllers
         [Route("answer")]
         public IActionResult Answer(AnswerModel answer)
         {
-            var output = _gameService.Answer(answer, _userService.UserId);
+            var output = _gameService.Answer(answer);
 
             return Ok(output);
+        }
+
+        [HttpGet]
+        [Route("settings")]
+        public IActionResult Settings()
+        {
+            var output = _gameService.PlayerSettings();
+
+            return Ok(output);
+        }
+
+        [HttpPost]
+        [Route("settings")]
+        public IActionResult UpdateSettings(SettingsModel settings)
+        {
+            _gameService.UpdatePlayerSettings(settings);
+
+            return Ok(settings);
         }
     }
 }

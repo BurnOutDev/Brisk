@@ -21,7 +21,6 @@ namespace Brisk.Persistence
         public DbSet<Quote> Quotes { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Game> Games { get; set; }
-        public DbSet<Player> Players { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Choice> Choices { get; set; }
         public DbSet<Question> Question { get; set; }

@@ -4,7 +4,9 @@ namespace Brisk.Application
 {
     public interface IGameService
     {
-        GameModel StartNewGame(int userId);
-        AnswerResponseModel Answer(AnswerModel answer, int userId);
+        GameModel StartNewGame();
+        AnswerResponseModel Answer(AnswerModel answer);
+        void UpdatePlayerSettings(SettingsModel settings);
+        SettingsModel PlayerSettings();
     }
 }

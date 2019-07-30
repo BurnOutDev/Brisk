@@ -31,6 +31,7 @@ import { MultipleChoiceComponent } from './multiple-choice/multiple-choice.compo
 import { BinaryChoiceComponent } from './binary-choice/binary-choice.component';
 import { QuoteComponent } from './quote/quote.component';
 import { GameComponent } from './game/game.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { GameComponent } from './game/game.component';
     MultipleChoiceComponent,
     BinaryChoiceComponent,
     QuoteComponent,
-    GameComponent
+    GameComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,9 @@ import { GameComponent } from './game/game.component';
     ReactiveFormsModule,
     InfiniteScrollModule,
     NgSelectModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 1000
+    }),
     AppRoutingModule
   ],
   providers: [

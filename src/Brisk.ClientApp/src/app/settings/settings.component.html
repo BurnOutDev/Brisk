@@ -1,0 +1,42 @@
+<div class="page">
+        <div class="p-3">
+            <div class="text-left">
+                <h4>Game Settings</h4>
+            </div>
+            <div class="form-group bd-callout bd-callout-warning py-1" *ngIf="settings$ | async as settings">
+                <label>Game Mode</label>
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="radio-binary-choice" [value]="answerModeBinary" [(ngModel)]="settings.answerMode">
+                    <label class="custom-control-label" for="radio-binary-choice">Binary Choice</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="radio-multiple-choice" class="custom-control-input" [value]="answerModeMultiple" [(ngModel)]="settings.answerMode">
+                    <label class="custom-control-label" for="radio-multiple-choice">Multiple Choice</label>
+                </div>
+            </div>
+            <div class="form-group bd-callout bd-callout-warning py-1" *ngIf="settings$ | async as settings">
+                <label for="question-count">Question Count</label>
+                <input type="number" class="form-control" [(ngModel)]="settings.questionCount" id="question-count" placeholder="Enter question count">
+            </div>
+            <div class="form-group" *ngIf="settings$ | async as settings">
+                <button class="btn btn-outline-secondary btn-block rounded-0" (click)="updateSettings(settings)" type="button">Save</button>
+            </div>
+            <div class="text-left">
+                <h4>Advanced Settings</h4>
+            </div>
+            <div class="list-group bd-callout bd-callout-warning">
+                <a class="list-group-item list-group-item-action cursor-link" (click)="goToQuoteManagement()">
+                    Quote Management
+                    <fa-icon icon="chevron-right" class="float-right"></fa-icon>
+                </a>
+                <a class="list-group-item list-group-item-action cursor-link" (click)="goToUserManagement()">
+                    User Management
+                    <fa-icon icon="chevron-right" class="float-right"></fa-icon>
+                </a>
+                <a class="list-group-item list-group-item-action cursor-link" (click)="goToUserAchievements()">
+                    Game Statistics and Reviews
+                    <fa-icon icon="chevron-right" class="float-right"></fa-icon>
+                </a>
+            </div>
+        </div>
+    </div>

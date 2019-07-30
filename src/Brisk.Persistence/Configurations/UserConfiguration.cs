@@ -22,8 +22,20 @@ namespace Brisk.Persistence.Configurations
                     x => (Role)Enum.Parse(typeof(Role), x))
                 .HasMaxLength(32);
 
+            builder.Property(p => p.AnswerMode)
+              .HasConversion(x =>
+                  x.ToString(),
+                  x => (AnswerMode)Enum.Parse(typeof(AnswerMode), x))
+              .HasMaxLength(32);
+
             builder.Property(p => p.Disabled)
                 .HasDefaultValue(false);
+
+            builder.Property(p => p.AnswerMode)
+                .HasDefaultValue(AnswerMode.Binary);
+
+            builder.Property(p => p.QuestionCount)
+                .HasDefaultValue(10);
 
             Seed(builder);
         }

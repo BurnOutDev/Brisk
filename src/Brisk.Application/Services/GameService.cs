@@ -15,21 +15,26 @@ namespace Brisk.Application
     {
         private BriskDbContext _context;
         private IMapper _mapper;
+        private IUserService _userService;
 
-        public GameService(BriskDbContext context, IMapper mapper)
+        public GameService(
+            BriskDbContext context,
+            IMapper mapper,
+            IUserService userService)
         {
             _context = context;
             _mapper = mapper;
+            _userService = userService;
         }
 
-        public GameModel StartNewGame(int userId)
+        public GameModel StartNewGame()
         {
-            var player = PlayerByUserId(userId);
+            var player = _context.Users.Find(_userService.UserId);
 
             var game = new Game
             {
                 AnswerMode = player.AnswerMode,
-                Player = player,
+                User = player,
                 QuestionCount = player.QuestionCount
             };
 
@@ -48,7 +53,7 @@ namespace Brisk.Application
 
             return gameModel;
         }
-        public AnswerResponseModel Answer(AnswerModel answer, int userId)
+        public AnswerResponseModel Answer(AnswerModel answer)
         {
             var response = new AnswerResponseModel();
 
@@ -89,16 +94,11 @@ namespace Brisk.Application
 
             return quotes;
         }
-        private ICollection<Question> AnsweredQuestionsByPlayer(Player player)
+        private ICollection<Question> AnsweredQuestionsByPlayer(User user)
         {
-            return player.PlayedGames
+            return user.PlayedGames
                 .SelectMany(game => game.Questions)
                 .ToHashSet();
-        }
-        private Player PlayerByUserId(int userId)
-        {
-            return _context.Players
-                .FirstOrDefault(p => p.User.Id == userId);
         }
         private ICollection<Question> GenerateQuestions(ICollection<Quote> quotes, AnswerMode AnswerMode)
         {
@@ -137,6 +137,27 @@ namespace Brisk.Application
             }
 
             return questions;
+        }
+        public void UpdatePlayerSettings(SettingsModel settings)
+        {
+            var player = _context.Users.Find(_userService.UserId);
+
+            player.AnswerMode = settings.AnswerMode;
+            player.QuestionCount = settings.QuestionCount;
+
+            _context.SaveChanges();
+        }
+        public SettingsModel PlayerSettings()
+        {
+            var player = _context.Users.Find(_userService.UserId);
+
+            var settings = new SettingsModel
+            {
+                AnswerMode = player.AnswerMode,
+                QuestionCount = player.QuestionCount
+            };
+
+            return settings;
         }
     }
 }

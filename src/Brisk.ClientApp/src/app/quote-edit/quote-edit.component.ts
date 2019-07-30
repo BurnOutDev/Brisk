@@ -26,11 +26,14 @@ export class QuoteEditComponent implements OnInit {
       this.authors$ = new BehaviorSubject<Author[]>(undefined);
 
       this.activatedRoute.params.subscribe(params => {
-        if(params['id'])
-        quotesService.getById$(params['id']).subscribe(quote => this.quote$.next(quote));
+        const parameterName = 'id';
+
+        if (params[parameterName]) {
+          quotesService.getById$(params[parameterName]).subscribe(quote => this.quote$.next(quote));
+        }
       });
 
-    quotesService.getAuthors$().subscribe(author => this.authors$.next(author));
+      quotesService.getAuthors$().subscribe(author => this.authors$.next(author));
   }
 
   ngOnInit() { }
