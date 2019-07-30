@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 import { User } from '../models/user.model';
+import { delay } from 'q';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {

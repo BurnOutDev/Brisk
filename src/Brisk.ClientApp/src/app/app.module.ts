@@ -26,6 +26,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AuthenticationInterceptor } from './core/interceptors/authentication.interceptor'
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { QuoteEditComponent } from './quote-edit/quote-edit.component';
+import { PlayComponent } from './play/play.component';
+import { MultipleChoiceComponent } from './multiple-choice/multiple-choice.component';
+import { BinaryChoiceComponent } from './binary-choice/binary-choice.component';
+import { QuoteComponent } from './quote/quote.component';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,12 @@ import { QuoteEditComponent } from './quote-edit/quote-edit.component';
     UserManagementComponent,
     AuthenticateComponent,
     QuoteManagementComponent,
-    QuoteEditComponent
+    QuoteEditComponent,
+    PlayComponent,
+    MultipleChoiceComponent,
+    BinaryChoiceComponent,
+    QuoteComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,

@@ -51,7 +51,7 @@ namespace Brisk.Api.Controllers
 
         [HttpPost]
         [Route("answer")]
-        public IActionResult StartNewGame(AnswerModel answer)
+        public IActionResult Answer(AnswerModel answer)
         {
             var output = _gameService.Answer(answer, _userService.UserId);
 

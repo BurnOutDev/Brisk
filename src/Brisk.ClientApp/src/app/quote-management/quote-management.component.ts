@@ -5,7 +5,6 @@ import { Author } from '../core/models/author.model';
 import { QuotesService } from '../core/services/quotes.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -29,9 +28,9 @@ export class QuoteManagementComponent implements OnInit {
     private quotesService: QuotesService,
     private toastrService: ToastrService) {
 
-      this.quotes$ = new BehaviorSubject<Quote[]>(undefined);
-      this.authors$ = new BehaviorSubject<Author[]>(undefined);
-      this.quotesCount = 0;
+    this.quotes$ = new BehaviorSubject<Quote[]>(undefined);
+    this.authors$ = new BehaviorSubject<Author[]>(undefined);
+    this.quotesCount = 0;
   }
 
   ngOnInit() {
