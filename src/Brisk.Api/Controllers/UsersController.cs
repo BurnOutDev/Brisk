@@ -46,6 +46,13 @@ namespace Brisk.Api.Controllers
             if (user == null)
                 return Unauthorized(new { message = "Username or password is incorrect" });
 
+            user = TokenOutput(user);
+
+            return Ok(user);
+        }
+
+        private AuthenticationOutput TokenOutput(AuthenticationOutput user)
+        {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -62,7 +69,7 @@ namespace Brisk.Api.Controllers
 
             user.Token = tokenString;
 
-            return Ok(user);
+            return user;
         }
 
         [AllowAnonymous]
@@ -71,8 +78,11 @@ namespace Brisk.Api.Controllers
         {
             try
             {
-                _userService.Create(input.FirstName, input.LastName, input.Username, input.Password);
-                return Ok();
+                var user = _userService.Create(input.FirstName, input.LastName, input.Username, input.Password);
+
+                user = TokenOutput(user);
+
+                return Ok(user);
             }
             catch (Exception ex)
             {

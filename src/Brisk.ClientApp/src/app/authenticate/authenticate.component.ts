@@ -16,6 +16,9 @@ export class AuthenticateComponent implements OnInit {
   returnUrl: string;
   error = '';
 
+  isNewUser: boolean;
+  buttonText: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -29,17 +32,36 @@ export class AuthenticateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.buildSignInForm();
+
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/play';
+  }
+
+  buildSignInForm() {
     this.loginForm = this.formBuilder.group({
       username: ['burnoutdev', Validators.required],
       password: ['burnindev', Validators.required]
     });
 
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/play';
+    this.buttonText =  'Sign In';
+    this.isNewUser = false;
+  }
+
+   buildRegisterForm() {
+    this.loginForm = this.formBuilder.group({
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      username: ['burnoutdev', Validators.required],
+      password: ['burnindev', Validators.required]
+    });
+
+    this.buttonText =  'Register';
+    this.isNewUser = true;
   }
 
   get f() { return this.loginForm.controls; }
 
-  onSubmit() {
+  submit() {
     this.submitted = true;
 
     if (this.loginForm.invalid) {
@@ -47,6 +69,20 @@ export class AuthenticateComponent implements OnInit {
     }
 
     this.loading = true;
+
+    if (this.isNewUser) {
+      this.authenticationService.register(this.f.username.value, this.f.password.value, this.f.firstname.value, this.f.lastname.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        });
+    } else {
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
@@ -57,5 +93,6 @@ export class AuthenticateComponent implements OnInit {
           this.error = error;
           this.loading = false;
         });
+      }
   }
 }

@@ -25,7 +25,6 @@ namespace Brisk.Api.Controllers
     {
         private IGameService _gameService;
         private IMapper _mapper;
-        private readonly AppSettings _appSettings;
 
         public GamesController(
             IGameService gameService,

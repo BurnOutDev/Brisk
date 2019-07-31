@@ -65,7 +65,7 @@ namespace Brisk.Application
             return _mapper.Map<UserOutput>(user);
         }
 
-        public UserOutput Create(string firstName, string lastName, string username, string password)
+        public AuthenticationOutput Create(string firstName, string lastName, string username, string password)
         {
             var user = new User();
             user.FirstName = firstName;
@@ -88,7 +88,7 @@ namespace Brisk.Application
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            var userOutput = _mapper.Map<UserOutput>(user);
+            var userOutput = _mapper.Map<AuthenticationOutput>(user);
 
             return userOutput;
         }

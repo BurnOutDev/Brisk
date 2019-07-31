@@ -11,6 +11,7 @@ import { delay } from 'q';
 export class AuthenticationService {
 
     private url: string;
+    private registerUrl: string;
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
@@ -18,6 +19,7 @@ export class AuthenticationService {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
         this.url = `${environment.apiUrl}/api/users/authenticate`;
+        this.registerUrl = `${environment.apiUrl}/api/users/register`;
     }
 
     public get currentUserValue(): User {
@@ -26,6 +28,15 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         return this.http.post<User>(this.url, { username, password })
+            .pipe(map(user => {
+                localStorage.setItem('currentUser', JSON.stringify(user))
+                this.currentUserSubject.next(user);
+                return user;
+            }));
+    }
+
+    register(username: string, password: string, firstname: string, lastname: string) {
+        return this.http.post<User>(this.registerUrl, { username, password, firstname, lastname })
             .pipe(map(user => {
                 localStorage.setItem('currentUser', JSON.stringify(user))
                 this.currentUserSubject.next(user);

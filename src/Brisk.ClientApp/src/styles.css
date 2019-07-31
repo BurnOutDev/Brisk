@@ -146,3 +146,7 @@ a.navbar-brand {
 .cursor-link {
   cursor: pointer;
 }
+
+button, .btn, .ng-select-container, .form-control, input {
+  border-radius: 0!important;
+}

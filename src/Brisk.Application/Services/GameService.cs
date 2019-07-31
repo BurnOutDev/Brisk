@@ -114,6 +114,8 @@ namespace Brisk.Application
                 var authors = _context.Authors.Random(2).ToList();
                 authors.Add(quote.Author);
 
+                authors.OrderBy(a => Guid.NewGuid());
+
                 authors.ForEach(author => question.Choices
                 .Add(new Choice
                 {
