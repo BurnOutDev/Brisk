@@ -32,6 +32,8 @@ import { BinaryChoiceComponent } from './binary-choice/binary-choice.component';
 import { QuoteComponent } from './quote/quote.component';
 import { GameComponent } from './game/game.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ResultComponent } from './result/result.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { SettingsComponent } from './settings/settings.component';
     BinaryChoiceComponent,
     QuoteComponent,
     GameComponent,
-    SettingsComponent
+    SettingsComponent,
+    ResultComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -24,7 +24,7 @@ export class AuthenticateComponent implements OnInit {
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/play']);
     }
   }
 
@@ -34,7 +34,7 @@ export class AuthenticateComponent implements OnInit {
       password: ['burnindev', Validators.required]
     });
 
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/play';
   }
 
   get f() { return this.loginForm.controls; }

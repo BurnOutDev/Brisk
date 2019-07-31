@@ -4,8 +4,7 @@ import { AnswerMode } from '../core/models/answer-mode.enum';
 import { BehaviorSubject } from 'rxjs';
 import { Settings } from '../core/models/settings.model';
 import { Router } from '@angular/router';
-import { ITEMS } from '../core/models/items.data';
-import { map, tap } from 'rxjs/operators';
+import { AuthenticationService } from '../core/services/authentication.service';
 
 @Component({
   selector: 'app-settings',
@@ -24,6 +23,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private gameService: GameService,
+    private authenticationService: AuthenticationService,
     private router: Router) { 
       this.settings$ = new BehaviorSubject<Settings>(undefined);
   }
@@ -52,5 +52,10 @@ export class SettingsComponent implements OnInit {
 
   goToUserAchievements() {
     this.router.navigateByUrl('user-achievements');
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/authenticate']);
   }
 }

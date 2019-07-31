@@ -9,6 +9,7 @@ import { PlayComponent } from './play/play.component';
 import { BinaryChoiceComponent } from './binary-choice/binary-choice.component';
 import { MultipleChoiceComponent } from './multiple-choice/multiple-choice.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ResultComponent } from './result/result.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'play', component: PlayComponent, canActivate: [AuthenticationGuard] },
   { path: 'binary-choice', component: BinaryChoiceComponent, canActivate: [AuthenticationGuard] },
   { path: 'multiple-choice', component: MultipleChoiceComponent, canActivate: [AuthenticationGuard] },
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthenticationGuard] }
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthenticationGuard] },
+  { path: 'result', component: ResultComponent, canActivate: [AuthenticationGuard] }
 ];
 
 @NgModule({

@@ -1,10 +1,13 @@
-<div id="content-container" class="page" *ngIf="question$ | async as question; else loading">
+<div id="content-container" class="page {{finished ? 'd-none' : ''}}" *ngIf="question$ | async as question; else loading">
     <div class="p-3">
         <div class="text-left">
             <h4>Who Said It?</h4>
         </div>
         <app-quote [content]="question.quote">
         </app-quote>
+        <div class="text-center binary-choice-element" *ngIf="singleChoiceForBinary">
+            <p id="binary-choice-author">{{singleChoiceForBinary.authorName}}</p>
+        </div>
     </div>
     <div class="multiple-choice-container btn-toolbar justify-content-center mx-5 pb-2 align-bottom" *ngIf="showMultipleChoices">
         <div class="btn-group-vertical special w-100">
@@ -18,17 +21,24 @@
     </div>
     <div id="binary-choice-container" class="binary-choice-element btn-toolbar justify-content-between mx-5 pb-3 pt-5" *ngIf="showBinaryChoices">
             <div class="btn-group">
-                <button type="button" class="btn btn-success">Yes</button>
+                <button [disabled]="isInputDisabled" type="button" class="btn btn-success" (click)="binaryAnswer(binaryAnswerYes)">Yes</button>
             </div>
             <div class="btn-group">
-                <button type="button" class="btn btn-danger">No</button>
+                <button [disabled]="isInputDisabled" type="button" class="btn btn-danger" (click)="binaryAnswer(binaryAnswerNo)">No</button>
             </div>
+    </div>    
+</div>
+<div class="page" *ngIf="finished">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Well done!</h4>
+            <p>Your score is {{correctAnswersCount}} out of {{questionCount}}</p>
+            <button (click)="playAgain()" class="btn btn-secondary btn-block">Play Again</button>
         </div>
 </div>
 <ng-template #loading>
-    <div id="content-container" class="page">
+    <div class="page">
         <div class=text-center>
-            <span *ngIf="loading" class="spinner-grow spinner-grow-lg mt-5"></span>
+            <span class="spinner-grow spinner-grow-lg mt-5"></span>
         </div>
     </div>
 </ng-template>
