@@ -1,6 +1,12 @@
 # Famous Quote Quiz
 A quiz game for testing purposes.
 
+## UPDATE:
+In ClientApp I added: 
+  - Authentication with user and password.
+  - Page /play, where game starts.
+  - Settings where you can change game mode and question count. On this page are quote management and user management pages (User achievements and reviews page is not finished yet).
+
 I created .NET Core API project with EF Core and added JWT Authentication for client applications. 
 
 API project has dependencies of Brisk.Domain, where my models and entities are and Brisk.Application where I put Services and it's interfaces. 
