@@ -43,9 +43,7 @@ export class UserManagementComponent implements OnInit {
     this.toastrService.error("Error");
   }
 
-  createUser(user: User) {
-
-
+  createUser() {
     this.users$.pipe(
       map(data =>
         data.push({
