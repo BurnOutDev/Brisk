@@ -33,7 +33,6 @@ import { QuoteComponent } from './quote/quote.component';
 import { GameComponent } from './game/game.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ResultComponent } from './result/result.component';
-import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -49,8 +48,7 @@ import { RegisterComponent } from './register/register.component';
     QuoteComponent,
     GameComponent,
     SettingsComponent,
-    ResultComponent,
-    RegisterComponent
+    ResultComponent
   ],
   imports: [
     BrowserModule,
