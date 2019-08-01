@@ -48,7 +48,6 @@ namespace Brisk.Api.Controllers
         public IActionResult Answer(AnswerModel answer)
         {
             var output = _gameService.Answer(answer);
-
             return Ok(output);
         }
 
