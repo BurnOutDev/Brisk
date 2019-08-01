@@ -59,7 +59,7 @@ export class QuoteManagementComponent implements OnInit {
     this.toastrService.error("Error");
   }
 
-  createQuote(quote: Quote) {
+  createQuote() {
     // this.quotes$.pipe(
     //   map(data =>
     //     data.push()));
